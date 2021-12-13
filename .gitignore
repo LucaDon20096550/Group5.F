@@ -2,3 +2,5 @@
 /src/WebApp/obj/
 /.idea/
 /.git/
+/src/WebApp/.idea/.idea.WebApp.dir/
+/test/WebAppTests/obj/
