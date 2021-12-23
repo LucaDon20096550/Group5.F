@@ -1,5 +1,19 @@
 # WDPR Project
 
+### Inhoud
+
++ Processen
+  - PDP
+  - Webdevelopment
+  - Database
++ Code Conventies
+  - Pascal Case
+  - Spacing
+  - Comments
+  - Taal
+  - Methoden
++ Handleiding
+
 ### Processen
 
 #### PDP (10%)
