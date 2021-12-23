@@ -11,7 +11,7 @@
   - Reflectie
   - Samenwerking
 
-### Webdevelopment (60%)
+#### Webdevelopment (60%)
 
 + Omvang van het product
 + Correcte toepassing van bootstrap (usability)
@@ -48,7 +48,7 @@
   - Integratie test
   - Performance test
 
-### Database (30%)
+#### Database (30%)
 
 + Domein model in uml
 + Database normalisatie
@@ -58,11 +58,9 @@
   - Views
   - Checks
 
-## Code Conventies
+### Code Conventies
 
-## Testplan
+### Testplan
 
-## Wiki
-
-## Handleiding
+### Handleiding
 
