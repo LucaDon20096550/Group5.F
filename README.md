@@ -155,7 +155,7 @@ Het openen en closen van methoden.
 Onjuist:
 
 ````
-public void StudentToevoegen() {
+public void AddStudent() {
   
 }
 ````
