@@ -60,7 +60,5 @@
 
 ### Code Conventies
 
-### Testplan
-
 ### Handleiding
 
