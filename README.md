@@ -68,8 +68,8 @@ Onjuist:
 ````
 public class pascalcase 
 {
-  public string voornaam;
-  public string staatofprovincie;
+  public string firstname;
+  public string Stateorprovince;
 }
 ````
 
@@ -78,23 +78,21 @@ Juist:
 ````
 public class PascalCase 
 {
-  public string Voornaam;
-  public string StaatOfProvincie;
+  public string Firstname;
+  public string StateOrProvince;
 }
 ````
 
-#### Layout
-
-##### Spacing
+#### Spacing
 Maak gebruik van 1 tab achter lines wanneer je in een scope zit en 1 white line na methoden.
 
 Onjuist:
 
 ````
-public class pascalcase 
+public class PascalCase 
 {
-public string Voornaam;
-public string StaatOfProvincie;
+public string Firstname;
+public string StateOrProvince;
 }
 ````
 
@@ -103,11 +101,74 @@ Juist:
 ````
 public class PascalCase 
 {
-  public string Voornaam;
-  public string StaatOfProvincie;
+  public string Firstname;
+  public string StateOrProvince;
 }
 // white line
 ````
 
+#### Comments
+Het gebruiken van comments.
+
+Onjuist:
+
+````
+//this is a
+//comment.
+````
+
+Juist:
+
+````
+// This is a
+// comment.
+````
+
+#### Taal
+De taal tijdens het coderen word gedaan in het engels.
+
+Onjuist:
+
+````
+public void StudentToevoegen()
+{
+  
+}
+
+string Voornaam;
+````
+
+Juist:
+
+````
+public void AddStudent()
+{
+  
+}
+
+string Firstname;
+````
+
+#### Methoden
+Het openen en closen van methoden.
+
+Onjuist:
+
+````
+public void StudentToevoegen() {
+  
+}
+````
+
+Juist:
+
+````
+public void AddStudent()
+{
+  
+}
+````
+
 ### Handleiding
 
+{ Einde van product vermeld }
