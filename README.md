@@ -1,8 +1,8 @@
 # WDPR Project
 
-## Processen
+### Processen
 
-### PDP (10%)
+#### PDP (10%)
 
 + Softwareontwikkelprocess
   - Scrum
