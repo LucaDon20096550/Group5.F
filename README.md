@@ -60,5 +60,54 @@
 
 ### Code Conventies
 
+#### Pascal Case
+Bij het aanmaken van een Class, Var en etc.
+
+Onjuist:
+
+````
+public class pascalcase 
+{
+  public string voornaam;
+  public string staatofprovincie;
+}
+````
+
+Juist:
+
+````
+public class PascalCase 
+{
+  public string Voornaam;
+  public string StaatOfProvincie;
+}
+````
+
+#### Layout
+
+##### Spacing
+Maak gebruik van 1 tab achter lines wanneer je in een scope zit en 1 white line na methoden.
+
+Onjuist:
+
+````
+public class pascalcase 
+{
+public string Voornaam;
+public string StaatOfProvincie;
+}
+````
+
+Juist:
+
+````
+public class PascalCase 
+{
+  public string Voornaam;
+  public string StaatOfProvincie;
+}
+// white line
+````
+
 ### Handleiding
 
