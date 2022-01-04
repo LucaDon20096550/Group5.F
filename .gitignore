@@ -1,7 +1,9 @@
-﻿/src/WebApp/bin/
+﻿/.idea/
+/src/WebApp/.idea/
+/test/WebAppTests/.idea/
+
+/src/WebApp/bin/
+/test/WebAppTests/bin/
+
 /src/WebApp/obj/
-/.idea/
-/.git/
-/src/WebApp/.idea/.idea.WebApp.dir/
 /test/WebAppTests/obj/
-/test/WebAppTests/bin/Debug/net5.0/CoverletSourceRootsMapping
