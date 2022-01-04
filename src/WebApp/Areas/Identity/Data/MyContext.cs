@@ -18,9 +18,58 @@ namespace WebApp.Areas.Identity.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            // Customize the ASP.NET Identity model and override the defaults if needed.
-            // For example, you can rename the ASP.NET Identity table names and more.
-            // Add your customizations after calling base.OnModelCreating(builder);
+
+            // Setting up keys
+            builder.Entity<Appointment>()
+                .HasKey(a => a.Id);
+
+            builder.Entity<OverviewFile>()
+                .HasKey(f => f.Id);
+
+            builder.Entity<File>()
+                .HasKey(f => f.Id);
+
+            builder.Entity<Group>()
+                .HasKey(g => g.Id);
+
+            builder.Entity<Message>()
+                .HasKey(m => m.Id);
+            
+
+            // Setting up relations
+            builder.Entity<ApplicationUser>()
+                .HasMany(c => c.Appointments)
+                .WithMany(a => a.Users);
+
+            builder.Entity<ApplicationUser>()
+                .HasOne(u => u.OverviewFile)
+                .WithOne(f => f.User);
+
+            builder.Entity<ApplicationUser>()
+                .HasMany(u => u.Files)
+                .WithOne(f => f.User);
+
+            builder.Entity<ApplicationUser>()
+                .HasMany(u => u.Guides);
+
+            builder.Entity<ApplicationUser>()
+                .HasMany(u => u.Groups)
+                .WithMany(g => g.Users);
+
+            builder.Entity<Group>()
+                .HasOne(g => g.GroupChat)
+                .WithOne(c => c.Group);
+
+            builder.Entity<ApplicationUser>()
+                .HasMany(u => u.PrivateChats)
+                .WithMany(c => c.Users);
+
+            builder.Entity<Chat>()
+                .HasMany(c => c.Messages)
+                .WithOne(m => m.Chat);
+
+            builder.Entity<Message>()
+                .HasOne(m => m.Sender);
         }
     }
 }
