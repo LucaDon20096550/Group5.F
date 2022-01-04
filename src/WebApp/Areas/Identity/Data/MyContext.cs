@@ -20,8 +20,7 @@ namespace WebApp.Areas.Identity.Data
         public DbSet<OverviewFile> OverviewFiles { get; set; }
         public DbSet<File> Files { get; set; }
         public DbSet<Group> Groups { get; set; }
-        public DbSet<PrivateChat> PrivateChats { get; set; }
-        public DbSet<GroupChat> GroupChats { get; set; }
+        public DbSet<Chat> Chats { get; set; }
         public DbSet<Message> Messages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)

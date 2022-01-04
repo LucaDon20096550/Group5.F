@@ -12,18 +12,6 @@ namespace WebApp.Areas.Identity
 {
     public class IdentityHostingStartup : IHostingStartup
     {
-        public void Configure(IWebHostBuilder builder)
-        {
-            builder.ConfigureServices((context, services) => {
-                services.AddDbContext<MyContext>(builder => builder.UseSqlite("Data Source=database.db"));
-
-                services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddDefaultUI()
-                    .AddEntityFrameworkStores<MyContext>()
-                    .AddRoles<IdentityRole>()
-                    .AddRoleManager<RoleManager<IdentityRole>>()
-                    .AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>(TokenOptions.DefaultProvider);
-            });
-        }
+        public void Configure(IWebHostBuilder builder) { /*builder.ConfigureServices((context, services) => {});*/ }
     }
 }
