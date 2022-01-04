@@ -15,6 +15,15 @@ namespace WebApp.Areas.Identity.Data
         {
         }
 
+        public DbSet<ApplicationUser> Users { get; set; }
+        public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<OverviewFile> OverviewFiles { get; set; }
+        public DbSet<File> Files { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<PrivateChat> PrivateChats { get; set; }
+        public DbSet<GroupChat> GroupChats { get; set; }
+        public DbSet<Message> Messages { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
