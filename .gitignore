@@ -4,3 +4,4 @@
 /.git/
 /src/WebApp/.idea/.idea.WebApp.dir/
 /test/WebAppTests/obj/
+/test/WebAppTests/bin/Debug/net5.0/CoverletSourceRootsMapping
