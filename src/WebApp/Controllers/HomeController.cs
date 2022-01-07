@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ using WebApp.Models;
 
 namespace WebApp.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly MyContext _context;
@@ -41,6 +43,24 @@ namespace WebApp.Controllers
             var groupChats = (await user).Groups.Select(g => g.GroupChat);
             var chats = privateChats.Concat(groupChats);
             return View(chats.ToList());
+        }
+
+        // GET: Home/AboutUs
+        public IActionResult AboutUs()
+        {
+            return View();
+        }
+        
+        // GET: Home/Doctors
+        public IActionResult Doctors()
+        {
+            return View();
+        }
+        
+        // GET: Home/Contact
+        public IActionResult Contact()
+        {
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
