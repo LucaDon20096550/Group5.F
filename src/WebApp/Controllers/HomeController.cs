@@ -3,29 +3,44 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using WebApp.Areas.Identity.Data;
 using WebApp.Models;
 
 namespace WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly MyContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(MyContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
-            _logger = logger;
+            _context = context;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _roleManager = roleManager;
         }
 
+        // GET: Home
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Privacy()
+        // GET: Home/Chat
+        public async Task<IActionResult> Chat()
         {
-            return View();
+            var user = _userManager.GetUserAsync(User);
+            var privateChats = (await user).PrivateChats.ConvertAll(c => (Chat)c);
+            var groupChats = (await user).Groups.Select(g => g.GroupChat);
+            var chats = privateChats.Concat(groupChats);
+            return View(chats.ToList());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
