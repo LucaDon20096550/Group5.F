@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApp.Areas.Identity.Data;
@@ -14,24 +15,29 @@ namespace WebApp.Controllers
     public class ChatApi : ControllerBase
     {
         private readonly MyContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ChatApi(MyContext context)
+        public ChatApi(MyContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: api/ChatApi
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Chat>>> GetChat()
+        public async Task<ActionResult<IEnumerable<Chat>>> GetChats()
         {
-            return await _context.Chats.ToListAsync();
+            var user = _userManager.GetUserAsync(User);
+            var privateChats = (await user).PrivateChats.ConvertAll(c => (Chat)c);
+            var groupChats = (await user).Groups.Select(g => g.GroupChat);
+            var chats = privateChats.Concat(groupChats);
+            return chats.ToList();
         }
 
         // GET: api/ChatApi/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Chat>> GetChat(int id)
         {
-            var chat = await _context.Chats.FindAsync(id);
+            var chat = (await GetChats()).Value.SingleOrDefault(c => c.Id == id);
 
             if (chat == null)
             {
@@ -81,6 +87,16 @@ namespace WebApp.Controllers
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetChat", new { id = chat.Id }, chat);
+        }
+
+        // POST: api/ChatApi/5/text
+        [HttpPost("chat, text")]
+        public async Task<ActionResult<Chat>> PostMessage(Chat chat, string text)
+        {
+            chat.Messages.Add(new Message { Text = text, DateTimeSent = DateTime.Now, Sender = (await _userManager.GetUserAsync(User)) });
+            await _context.SaveChangesAsync();
+
+            return chat;
         }
 
         // DELETE: api/ChatApi/5

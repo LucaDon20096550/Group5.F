@@ -1,0 +1,9 @@
+@model List<Chat>
+
+Chat names and last message in chat:
+<ul>
+    @foreach (var chat in Model)
+    {
+        <li>@chat.Name - @chat.Messages.Max(m => m.DateTimeSent)</li>
+    }
+</ul>
