@@ -7,3 +7,6 @@
 
 /src/WebApp/obj/
 /test/WebAppTests/obj/
+
+/src/WebApp/.vscode/
+/test/WebAppTests/.vscode/
