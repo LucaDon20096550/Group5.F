@@ -20,4 +20,9 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\PNG\fear-g3c532b562_1280.png" />
+    <None Include="wwwroot\PNG\medical-g44a3384bc_1280.png" />
+  </ItemGroup>
+
 </Project>
