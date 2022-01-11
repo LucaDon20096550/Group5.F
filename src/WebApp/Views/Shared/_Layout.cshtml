@@ -27,22 +27,22 @@
               <div class="collapse navbar-collapse" id="navmenu">
                 <ul class="navbar-nav ms-auto">
                   <li class="nav-item">
-                    <a href="#home" class="nav-link">Home</a>
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                   </li>
                   <li class="nav-item">
-                    <a href="#info" class="nav-link">Info</a>
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="AboutUs">Over ons</a>
                   </li>
                   <li class="nav-item">
-                    <a href="#ortho" class="nav-link">Orthopedagogen</a>
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Doctors">orthopedagogen</a>
                   </li>
                   <li class="nav-item">
-                    <a href="#about" class="nav-link">Over ons</a>
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
                   </li>
                 </ul>
               </div>
     
               <div>
-                  <a id="login button" class="btn  btn-sm " href="#" role="button"> 
+                  <a id="login button" class="btn btn-sm " href="#" role="button"> 
                       <i class="bi bi-person-circle h4"></i>
                   </a>
               </div>
@@ -62,7 +62,7 @@
 
 <footer class="border-top footer text-muted">
     <div class="container">
-        &copy; 2021 - ZMDH - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        &copy; 2021 - ZMDH - <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
             
         <a href="#" class="position-absolute bottom-0 end-0 p-5">
             <i class="bi bi-arrow-up-circle-fill  h1"></i>
