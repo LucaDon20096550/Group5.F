@@ -1,12 +1,12 @@
 ﻿/.idea/
 /src/WebApp/.idea/
-/test/WebAppTests/.idea/
+/test/WebApp.Tests/.idea/
 
 /src/WebApp/bin/
-/test/WebAppTests/bin/
+/test/WebApp.Tests/bin/
 
 /src/WebApp/obj/
-/test/WebAppTests/obj/
+/test/WebApp.Tests/obj/
 
 /src/WebApp/.vscode/
-/test/WebAppTests/.vscode/
+/test/WebApp.Tests/.vscode/

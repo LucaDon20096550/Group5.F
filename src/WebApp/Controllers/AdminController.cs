@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApp.Areas.Identity.Data;
 
-namespace WebApp
+namespace WebApp.Controllers
 {
     [Authorize(Roles = "Administrator")]
     public class AdminController : Controller
