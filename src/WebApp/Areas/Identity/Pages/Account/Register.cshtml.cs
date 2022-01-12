@@ -61,7 +61,6 @@ namespace WebApp.Areas.Identity.Pages.Account
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
 
-            [Required]
             [Display(Name = "ClientId")]
             public int ClientId { get; set; }
         }
