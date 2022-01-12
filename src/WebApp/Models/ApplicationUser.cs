@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 public class ApplicationUser : IdentityUser
 {
-    public int ApiId { get; set; }
+    public int ClientId { get; set; }
     public List<ApplicationUser> Guides { get; set; }
     public List<ApplicationUser> GuidedBy { get; set; }
     public List<Appointment> Appointments { get; set; }
