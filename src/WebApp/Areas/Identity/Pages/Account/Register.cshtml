@@ -29,7 +29,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Input.ClientId"></label>
-                <input asp-for="Input.ClientId" class="form-control" />
+                <input asp-for="Input.ClientId" class="form-control" id="ClientId" />
                 <span asp-validation-for="Input.ClientId" class="number-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary" onclick="register()">Register</button>
@@ -70,9 +70,44 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script>
-        function register(){
-            alert(const list = await fetch("/api/HuurderApi/" + sorteerOp)
-                .then((i) => i.json);)
+        async function register(){
+            var Id = document.getElementById("ClientId").value;
+            var ClientId = "\"" + Id + "\"";
+            if (ClientId != "") {
+                var result = await fetch("https://orthopedagogie-zmdh.herokuapp.com/clienten?sleutel=775610609", {
+                    method : "post",
+                    body: JSON.stringify({"clientid" : ClientId})
+                });
+
+                if (result.status == 400) { alert("Deze inlog is gelinkt aan een bestaand profiel van ZMDH"); }
+                else if (result.status == 200) {
+                    var JsonBody = {};
+
+                    var FullName = prompt("Wat is uw volledige naam?");
+                    if (FullName != "") { JsonBody["volledigenaam"] = FullName; }
+
+                    var IBAN = prompt("Wat is uw IBAN?");
+                    if (IBAN != "") { JsonBody["IBAN"] = IBAN; }
+
+                    var BSN = prompt("Wat is uw BSN?");
+                    if (BSN != "") { JsonBody["BSN"] = BSN; }
+
+                    var DateOfBirth = prompt("Wat is uw geboortedatum?");
+                    if (DateOfBirth != "") { JsonBody["gebdatum"] = DateOfBirth; }
+
+
+                    if (Object.keys(JsonBody).length != 0) {
+                        result = await fetch("https://orthopedagogie-zmdh.herokuapp.com/clienten?sleutel=775610609&clientid=" + Id, {
+                            method : "put",
+                            body: JsonBody
+                        });
+                        alert("Er is een profiel bij ZMDH aangemaakt voor deze ClientId.");
+                    } else {
+                        alert("Er is geen data meegegeven! Er is een leeg profiel aangemaakt.");
+                    }
+                }
+                else { alert("error"); }
+            }
         }
     </script>
 }
