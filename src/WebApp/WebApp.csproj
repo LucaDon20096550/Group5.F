@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <PreserveCompilationContext>True</PreserveCompilationContext>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
@@ -18,11 +18,11 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0" />
+    <PackageReference Include="FluentEmail.Smtp" Version="3.0.0" />
+    <PackageReference Include="FluentEmail.Razor" Version="3.0.0" />
   </ItemGroup>
-
   <ItemGroup>
     <None Include="wwwroot\PNG\fear-g3c532b562_1280.png" />
     <None Include="wwwroot\PNG\medical-g44a3384bc_1280.png" />
   </ItemGroup>
-
 </Project>
