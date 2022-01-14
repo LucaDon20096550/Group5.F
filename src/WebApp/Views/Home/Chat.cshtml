@@ -1,21 +1,56 @@
-@* @model List<Chat>
-
-Chat names and last message in chat:
-<ul>
-    @foreach (var chat in Model)
-    {
-        <li>@chat.Name - @chat.Messages.Max(m => m.DateTimeSent)</li>
-    }
-</ul> *@
-
+@model ApplicationUser
+@{
+    //var chats = ViewData["Chats"] as List<Chat>;
+}
 <div class="container mw-100">
     <div class="row" style="height: 82vh;">
         <div class="col-sm-3 col-12" style="background-color: #e2fbe8; padding: 0!important;">
-            <ul class="list-group" style="border-radius: 0!important;max-height: 620px;height: 100%;overflow-y: scroll">
+            <ul class="list-group" style="border-radius: 0!important;max-height: 620px;height: 100%;overflow-y: scroll" id="chatList">
                 
                 <li class="list-group-item p-4" style="color: black;">
                     <a href="#">Chat verlaten</a>
                 </li>
+
+
+                @* @foreach (var chat2 in chats)
+                {
+                    @if (chat2.GetType() == typeof(PrivateChat))
+                    {
+                        var chat = (PrivateChat)chat2;
+                        <a href="#" style="text-decoration: none;">
+                            <li class="list-group-item" style="border-top: solid 1px black;">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>IMG</p>
+                                    </div>
+                                    <div class="col-8">
+                                        <p>@chat.Name</p>
+                                        <p>@chat.Users.Single(u => u != Model)</p>
+                                        <p>@chat.Messages.Max(m => m.DateTimeSent)</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </a>
+                    }
+                    else if (chat2.GetType() == typeof(GroupChat))
+                    {
+                        var chat = (GroupChat)chat2;
+                        <a href="#" style="text-decoration: none;">
+                            <li class="list-group-item" style="border-top: solid 1px black;">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>IMG</p>
+                                    </div>
+                                    <div class="col-8">
+                                        <p>@chat.Name</p>
+                                        <p>@chat.Group.Name</p>
+                                        <p>@chat.Messages.Max(m => m.DateTimeSent)</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </a>
+                    }
+                } *@
 
                 <a href="#" style="text-decoration: none;">
                     <li class="list-group-item" style="border-top: solid 1px black;">
@@ -31,68 +66,69 @@ Chat names and last message in chat:
                         </div>
                     </li>
                 </a>
-                                <a href="#" style="text-decoration: none;">
-                    <li class="list-group-item" style="border-top: solid 1px black;">
-                        <div class="row">
-                            <div class="col-4">
-                                <p>IMG</p>
-                            </div>
-                            <div class="col-8">
-                                <p>Orthopedagoog</p>
-                                <p>D. Aygun</p>
-                                <p>Datum</p>
-                            </div>
-                        </div>
-                    </li>
-                </a>
-                                <a href="#" style="text-decoration: none;">
-                    <li class="list-group-item" style="border-top: solid 1px black;">
-                        <div class="row">
-                            <div class="col-4">
-                                <p>IMG</p>
-                            </div>
-                            <div class="col-8">
-                                <p>Orthopedagoog</p>
-                                <p>D. Aygun</p>
-                                <p>Datum</p>
-                            </div>
-                        </div>
-                    </li>
-                </a>
-                                <a href="#" style="text-decoration: none;">
-                    <li class="list-group-item" style="border-top: solid 1px black;">
-                        <div class="row">
-                            <div class="col-4">
-                                <p>IMG</p>
-                            </div>
-                            <div class="col-8">
-                                <p>Orthopedagoog</p>
-                                <p>D. Aygun</p>
-                                <p>Datum</p>
-                            </div>
-                        </div>
-                    </li>
-                </a>
-                                <a href="#" style="text-decoration: none;">
-                    <li class="list-group-item" style="border-top: solid 1px black;">
-                        <div class="row">
-                            <div class="col-4">
-                                <p>IMG</p>
-                            </div>
-                            <div class="col-8">
-                                <p>Orthopedagoog</p>
-                                <p>D. Aygun</p>
-                                <p>Datum</p>
-                            </div>
-                        </div>
-                    </li>
-                </a>
-                
 
+                <a href="#" style="text-decoration: none;">
+                    <li class="list-group-item" style="border-top: solid 1px black;">
+                        <div class="row">
+                            <div class="col-4">
+                                <p>IMG</p>
+                            </div>
+                            <div class="col-8">
+                                <p>Orthopedagoog</p>
+                                <p>D. Aygun</p>
+                                <p>Datum</p>
+                            </div>
+                        </div>
+                    </li>
+                </a>
+
+                <a href="#" style="text-decoration: none;">
+                    <li class="list-group-item" style="border-top: solid 1px black;">
+                        <div class="row">
+                            <div class="col-4">
+                                <p>IMG</p>
+                            </div>
+                            <div class="col-8">
+                                <p>Orthopedagoog</p>
+                                <p>D. Aygun</p>
+                                <p>Datum</p>
+                            </div>
+                        </div>
+                    </li>
+                </a>
+
+                <a href="#" style="text-decoration: none;">
+                    <li class="list-group-item" style="border-top: solid 1px black;">
+                        <div class="row">
+                            <div class="col-4">
+                                <p>IMG</p>
+                            </div>
+                            <div class="col-8">
+                                <p>Orthopedagoog</p>
+                                <p>D. Aygun</p>
+                                <p>Datum</p>
+                            </div>
+                        </div>
+                    </li>
+                </a>
+
+                <a href="#" style="text-decoration: none;">
+                    <li class="list-group-item" style="border-top: solid 1px black;">
+                        <div class="row">
+                            <div class="col-4">
+                                <p>IMG</p>
+                            </div>
+                            <div class="col-8">
+                                <p>Orthopedagoog</p>
+                                <p>D. Aygun</p>
+                                <p>Datum</p>
+                            </div>
+                        </div>
+                    </li>
+                </a>
             </ul>
         </div>
-        <div class="col-9 d-none d-sm-block" style="display: flex!important;background-color: #e2fbe8;padding: 0!important;flex-direction: column;
-    justify-content: space-between;">
+        <div class="col-9 d-none d-sm-block" style="display: flex!important;background-color: #e2fbe8;padding: 0!important;flex-direction: column;justify-content: space-between;">
             <div class="col-12" style="padding: 0;">
 
                 <ul class="list-group" style="overflow-y: scroll;list-style-type: none;max-height:450px;">
@@ -148,3 +184,69 @@ Chat names and last message in chat:
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        setInterval(updateChat(), 1000);
+
+        var chats = [];
+
+        async function updateChat() {
+            const list = await fetch("/api/ChatApi")
+                .then((i) => i.json);
+
+            var chatUpdated = false;
+            alert("test");
+            if (list.length != chats.length) { chatUpdated = true; }
+            else {
+                for (let i = 0; i < list.length(); i++) {
+                    if (list[i] != chats[i]) { chatUpdated = true; }
+                }
+            }
+            //if (chatUpdated) {
+                chats = list;
+                var chatList = document.getElementById("chatList");
+                chatList.innerHTML = "<li class=\"list-group-item p-4\" style=\"color: black;\"><a href=\"#\">Chat verlaten</a></li>";
+                for (var chat2 of chats)
+                {
+                    @if (@:chat2.GetType() == typeof(PrivateChat))
+                    {
+                        var chat = (PrivateChat)chat2;
+                        @:chatList.innerHTML += "<a href=\"#\" style=\"text-decoration: none;\">" +
+                        @:    "<li class=\"list-group-item\" style=\"border-top: solid 1px black;\">" +
+                        @:        "<div class=\"row\">" +
+                        @:            "<div class=\"col-4\">" +
+                        @:                "<p>IMG</p>" +
+                        @:            "</div>" +
+                        @:            "<div class=\"col-8\">" +
+                        @:                "<p>" + @chat.Name + "</p>" +
+                        @:                "<p>" + @chat.Users.Single(u => u != Model) + "</p>" +
+                        @:                "<p>" + @chat.Messages.Max(m => m.DateTimeSent) + "</p>" +
+                        @:            "</div>" +
+                        @:        "</div>" +
+                        @:    "</li>" +
+                        @:"</a>";
+                    }
+                    else if (chat2.GetType() == typeof(GroupChat))
+                    {
+                        var chat = (GroupChat)chat2;
+                        @:chatList.innerHTML += "<a href=\"#\" style=\"text-decoration: none;\">" +
+                        @:    "<li class=\"list-group-item\" style=\"border-top: solid 1px black;\">" +
+                        @:        "<div class=\"row\">" +
+                        @:            "<div class=\"col-4\">" +
+                        @:                "<p>IMG</p>" +
+                        @:            "</div>" +
+                        @:            "<div class=\"col-8\">" +
+                        @:                "<p>" + @chat.Name + "</p>" +
+                        @:                "<p>" + @chat.Group.Name + "</p>" +
+                        @:                "<p>" + @chat.Messages.Max(m => m.DateTimeSent) + "</p>" +
+                        @:            "</div>" +
+                        @:        "</div>" +
+                        @:    "</li>" +
+                        @:"</a>";
+                    }
+                }
+            //}
+        }
+    </script>
+}

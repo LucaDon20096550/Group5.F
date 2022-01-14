@@ -32,7 +32,7 @@ namespace WebApp.Controllers
             var privateChats = (await user).PrivateChats.ConvertAll(c => (Chat)c);
             var groupChats = (await user).Groups.Select(g => g.GroupChat);
             var chats = privateChats.Concat(groupChats);
-            return chats.ToList();
+            return chats.OrderBy(c => c.Messages.Max(m => m.DateTimeSent)).ToList();
         }
 
         // GET: api/ChatApi/5
