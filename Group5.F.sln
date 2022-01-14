@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "src\WebApp\WebApp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{E7201AE1-DC15-41A9-93C4-3F6C9E9C9E65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppTests", "test\WebAppTests\WebAppTests.csproj", "{2771DF84-09D5-4A3C-8A42-88AD89557D19}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp.Tests", "test\WebApp.Tests\WebApp.Tests.csproj", "{2771DF84-09D5-4A3C-8A42-88AD89557D19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
