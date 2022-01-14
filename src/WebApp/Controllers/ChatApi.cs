@@ -28,11 +28,20 @@ namespace WebApp.Controllers
         // GET: api/ChatApi
         public async Task<ActionResult<IEnumerable<Chat>>> GetChats()
         {
-            var user = _userManager.GetUserAsync(User);
-            var privateChats = (await user).PrivateChats.ConvertAll(c => (Chat)c);
-            var groupChats = (await user).Groups.Select(g => g.GroupChat);
-            var chats = privateChats.Concat(groupChats);
-            return chats.OrderBy(c => c.Messages.Max(m => m.DateTimeSent)).ToList();
+            var user = await _userManager.GetUserAsync(User);
+            var PrivateChats = ( user).PrivateChats;
+            var Groups = ( user).Groups;
+            var chats = new List<Chat>();
+            if (!((PrivateChats != null && PrivateChats.Count() == 0 && Groups != null && Groups.Count() == 0) ||
+                (PrivateChats != null && PrivateChats.Count() == 0 && Groups == null) ||
+                (PrivateChats == null && Groups != null && Groups.Count() == 0) ||
+                (PrivateChats == null && Groups == null))) {
+                    if (PrivateChats != null && PrivateChats.Count() > 0 && Groups != null && Groups.Count() == 0) { PrivateChats.ForEach(c => chats.Add(c)); }
+                    else if (PrivateChats != null && PrivateChats.Count() == 0 && Groups != null && Groups.Count() > 0) { Groups.Select(g => g.GroupChat).ToList().ForEach(c => chats.Add(c)); }
+                    else if (PrivateChats != null && PrivateChats.Count() > 0 && Groups != null && Groups.Count() > 0) { PrivateChats.ForEach(c => chats.Add(c)); Groups.Select(g => g.GroupChat).ToList().ForEach(c => chats.Add(c)); }
+                    chats.OrderBy(c => c.Messages.Max(m => m.DateTimeSent));
+            }
+            return chats.ToList();
         }
 
         // GET: api/ChatApi/5

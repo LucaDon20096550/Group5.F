@@ -42,17 +42,6 @@ namespace WebApp.Controllers
         public async Task<IActionResult> Chat()
         {
             var user = _userManager.GetUserAsync(User);
-            var PrivateChats = (await user).PrivateChats;
-            var Groups = (await user).Groups;
-            var chats = new List<Chat>();
-            ViewData["Chats"] = user;
-            if ((PrivateChats != null && PrivateChats.Count() == 0 && Groups != null && Groups.Count() == 0) ||
-                (PrivateChats != null && PrivateChats.Count() == 0 && Groups == null) ||
-                (PrivateChats == null && Groups != null && Groups.Count() == 0) ||
-                (PrivateChats == null && Groups == null)) { ViewData["Chats"] = chats.ToList(); }
-            else if (PrivateChats != null && PrivateChats.Count() > 0 && Groups != null && Groups.Count() == 0) { ViewData["Chats"] = PrivateChats.ConvertAll(c => (Chat)c).OrderBy(c => c.Messages.Max(m => m.DateTimeSent)).ToList(); }
-            else if (PrivateChats != null && PrivateChats.Count() == 0 && Groups != null && Groups.Count() > 0) { ViewData["Chats"] = Groups.Select(g => g.GroupChat).OrderBy(c => c.Messages.Max(m => m.DateTimeSent)).ToList(); }
-            else if (PrivateChats != null && PrivateChats.Count() > 0 && Groups != null && Groups.Count() > 0) { ViewData["Chats"] = PrivateChats.ConvertAll(c => (Chat)c).Concat(Groups.Select(g => g.GroupChat).OrderBy(c => c.Messages.Max(m => m.DateTimeSent)).ToList()); }
             return View(await user);
         }
 
