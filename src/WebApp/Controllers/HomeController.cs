@@ -38,11 +38,12 @@ namespace WebApp.Controllers
         // GET: Home/Chat
         public async Task<IActionResult> Chat()
         {
-            var user = _userManager.GetUserAsync(User);
-            var privateChats = (await user).PrivateChats.ConvertAll(c => (Chat)c);
-            var groupChats = (await user).Groups.Select(g => g.GroupChat);
-            var chats = privateChats.Concat(groupChats);
-            return View(chats.ToList());
+            // var user = _userManager.GetUserAsync(User);
+            // var privateChats = (await user).PrivateChats.ConvertAll(c => (Chat)c);
+            // var groupChats = (await user).Groups.Select(g => g.GroupChat);
+            // var chats = privateChats.Concat(groupChats);
+            // return View(chats.ToList());
+            return View();
         }
 
         // GET: Home/AboutUs
