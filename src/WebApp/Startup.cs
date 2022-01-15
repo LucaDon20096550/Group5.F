@@ -12,6 +12,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebApp.Areas.Identity.Data;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
+using WebApp.Areas.Identity.Services;
+using System.Net.Mail;
+using System.Net;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace WebApp
 {
@@ -39,6 +44,8 @@ namespace WebApp
                     .AddRoles<IdentityRole>()
                     .AddRoleManager<RoleManager<IdentityRole>>()
                     .AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>(TokenOptions.DefaultProvider);
+
+            services.AddTransient<IEmailSender, EmailSender>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
