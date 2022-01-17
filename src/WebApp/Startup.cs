@@ -30,7 +30,7 @@ namespace WebApp
             services.AddControllersWithViews()
                     .AddNewtonsoftJson();
             
-            services.AddRazorPages();
+            services.AddRazorPages().AddRazorRuntimeCompilation();
 
             services.AddDbContext<MyContext>(builder => builder.UseSqlite("Data Source=database.db"));
             services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
