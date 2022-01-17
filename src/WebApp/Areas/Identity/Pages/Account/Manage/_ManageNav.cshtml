@@ -2,14 +2,77 @@
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
-<ul class="nav nav-pills flex-column">
-    <li class="nav-item"><a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Profile</a></li>
-    <li class="nav-item"><a class="nav-link @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">Email</a></li>
-    <li class="nav-item"><a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Password</a></li>
-    @if (hasExternalLogins)
-    {
-        <li id="external-logins" class="nav-item"><a id="external-login" class="nav-link @ManageNavPages.ExternalLoginsNavClass(ViewContext)" asp-page="./ExternalLogins">External logins</a></li>
+
+<style>
+    .nav_titel_beheer {
+        border-right: solid 5px rgb(164, 223, 170)!important;
+        padding-right: 25px!important;
+        width: 175px;
+        min-width: 175px;
+        max-width: 175px;
     }
-    <li class="nav-item"><a class="nav-link @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)" id="two-factor" asp-page="./TwoFactorAuthentication">Two-factor authentication</a></li>
-    <li class="nav-item"><a class="nav-link @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData">Personal data</a></li>
-</ul>
+    .profile_nav li {
+        border-bottom: solid 1px black;
+        margin-bottom: 10px;
+    }
+    .profile_nav li a {
+        color: black;
+        text-decoration: none;
+    }
+</style>
+
+<section>
+    <div class="container">
+
+    
+    <div class="row">
+        <div class="d-flex flex-row mx-2">
+            <h4 class="title-beheer nav_titel_beheer">Account</h2>
+            <ul class="profile_nav" style="list-style-type: none;">
+                <li><a class="@ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Profiel</a></li>
+                <li>test</li>
+                <li><a class="@ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">Email</a></li>
+                <li><a class="@ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Wachtwoord</a></li>
+                @if (hasExternalLogins)
+                {
+                    <li><a id="external-login" class="nav-link @ManageNavPages.ExternalLoginsNavClass(ViewContext)" asp-page="./ExternalLogins">Externe logins</a></li>
+                }
+                <li><a class="@ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)" id="two-factor" asp-page="./TwoFactorAuthentication">Twee stappen Authenticatie</a></li>
+                <li><a class="@ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData">Persoonlijke data</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="d-flex flex-row mt-5 mx-2">
+            <h4 class="title-beheer nav_titel_beheer">Beheer</h2>
+            <ul class="profile_nav" style="list-style-type: none;">
+                <li><a id="Zelfhulpgroepen" asp-page="./Zelfhulpgroepen">Zelfhulpgroepen</a></li>
+                <li>Gebruikers</li>
+                <li>Gerapporteerde Berichten</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="d-flex flex-row mt-5 mx-2">
+            <h4 class="title-beheer nav_titel_beheer">Chat</h2>
+            <ul class="profile_nav" style="list-style-type: none;">
+                <li><a href="/home/chat">Chat App</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="d-flex flex-row mt-5 mx-2">
+            <h4 class="title-beheer nav_titel_beheer">Administratie</h2>
+            <ul class="profile_nav" style="list-style-type: none;">
+                <li>Client Inschrijven</li>
+                <li>Medewerker Inschrijven</li>
+            </ul>
+        </div>
+    </div>
+    </div>
+</section>
+
+   

@@ -45,20 +45,56 @@ namespace WebApp.Controllers
             return View(await user);
         }
 
-        // GET: Home/AboutUs
-        public IActionResult AboutUs()
+        // GET: Home/OverOns
+        public IActionResult OverOns()
         {
             return View();
         }
         
-        // GET: Home/Doctors
-        public IActionResult Doctors()
+        // GET: Home/Zelfhulpgroepen
+        public IActionResult Zelfhulpgroepen()
+        {
+            return View();
+        }
+
+        // GET: Home/Visie
+        public IActionResult Visie()
+        {
+            return View();
+        }
+
+        // GET: Home/Klachteninformatie
+        public IActionResult Klachteninformatie()
         {
             return View();
         }
         
-        // GET: Home/Contact
-        public IActionResult Contact()
+        // GET: Home/Specialisten
+        public IActionResult Specialisten()
+        {
+            return View();
+        }
+
+        // GET: Home/Aanmelden
+        public IActionResult Aanmelden()
+        {
+            return View();
+        }
+
+        // GET: Home/AlgemeneVoorwaarden
+        public IActionResult AlgemeneVoorwaarden()
+        {
+            return View();
+        }
+
+        // GET: Home/PrivacyPolicy
+        public IActionResult PrivacyPolicy()
+        {
+            return View();
+        }
+
+        // GET: Home/OrthopedagoogProfiel
+        public IActionResult OrthopedagoogProfiel()
         {
             return View();
         }
