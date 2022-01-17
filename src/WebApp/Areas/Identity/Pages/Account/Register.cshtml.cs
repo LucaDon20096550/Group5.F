@@ -46,6 +46,10 @@ namespace WebApp.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            [Display(Name = "ClientId")]
+            public int ClientId { get; set; }
+
+            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -74,7 +78,7 @@ namespace WebApp.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+                var user = new ApplicationUser { ClientId = Input.ClientId, UserName = Input.Email, Email = Input.Email, Guides = new List<ApplicationUser>(), GuidedBy = new List<ApplicationUser>(), Appointments = new List<Appointment>(), Files = new List<File>(), Groups = new List<Group>(), PrivateChats = new List<PrivateChat>() };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
