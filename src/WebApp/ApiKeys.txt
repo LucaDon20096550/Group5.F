@@ -6,3 +6,7 @@ Private key: MIICWwIBAAKBgQC77iGm9T8RRa79XMdPnl+ttdoKe0BMx9Lqc6uAAghd2pCPyfoDxBK
 
 https://orthopedagogie-zmdh.herokuapp.com/
 Code: 775610609
+
+admin login
+admin@zmdh.info
+Admin1!

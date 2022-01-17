@@ -5,12 +5,6 @@ using Microsoft.AspNetCore.Identity;
 
 public class ApplicationUser : IdentityUser
 {
-	[Required(ErrorMessage = "Voornaam is niet ingevuld")]
-	public string FirstName { get; set; }
-	[Required(ErrorMessage = "Achternaam is niet ingevuld")]
-	public string LastName { get; set; }
-	[Required(ErrorMessage = "Geboortedatum is niet ingevuld")]
-    public DateTime DateOfBirth { get; set; }
     public int ClientId { get; set; }
     public List<ApplicationUser> Guides { get; set; }
     public List<ApplicationUser> GuidedBy { get; set; }
