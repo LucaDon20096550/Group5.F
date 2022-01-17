@@ -25,4 +25,8 @@
     <None Include="wwwroot\PNG\medical-g44a3384bc_1280.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Vscode Samsor" />
+  </ItemGroup>
+
 </Project>
