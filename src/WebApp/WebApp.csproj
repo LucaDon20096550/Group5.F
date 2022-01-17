@@ -27,4 +27,8 @@
     <None Include="wwwroot\PNG\fear-g3c532b562_1280.png" />
     <None Include="wwwroot\PNG\medical-g44a3384bc_1280.png" />
   </ItemGroup>
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\ApplicationUser\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\ApplicationUser\x.cshtml" />
+  </ItemGroup>
 </Project>

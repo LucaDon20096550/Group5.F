@@ -27,8 +27,8 @@
 
 @section Scripts {
     <script>
-        //setInterval(updateChat, 1000);
-        updateChat();
+        setInterval(updateChat, 1000);
+        //updateChat();
 
         var chats;
         var currentChat;
@@ -48,7 +48,7 @@
             if (chatUpdated) {
                 chats = list;
                 var chatList = document.getElementById("chatList");
-                chatList.innerHTML = "<li class=\"list-group-item p-4\" style=\"color: black;\"><a href=\"#\">Chat verlaten</a></li>";
+                chatList.innerHTML = "<li class=\"list-group-item p-4\" style=\"color: black;\"><a href=\"Index\">Chat verlaten</a></li>";
                 if (list != null) {
                     if (list.length == 0) {
                         chatList.innerHTML += "<li class=\"list-group-item p-4\" style=\"color: black;border-top: solid 1px black;\">" +
@@ -89,7 +89,7 @@
                         }
                     }
                 }
-                chatList.innerHTML += "<a href=\"#\" style=\"text-decoration: none;\" onclick=\"getMessagesInChat(20158726)\">" +
+                /*chatList.innerHTML += "<a href=\"#\" style=\"text-decoration: none;\" onclick=\"getMessagesInChat(20158726)\">" +
                                         "<li class=\"list-group-item\" style=\"border-top: solid 1px black;\">" +
                                             "<div class=\"row\">" +
                                                 "<div class=\"col-4\">" +
@@ -117,7 +117,7 @@
                                                 "</div>" +
                                             "</div>" +
                                         "</li>" +
-                                      "</a>";
+                                      "</a>";*/
             }
         }
 
@@ -144,7 +144,7 @@
                                                    "</div>" +
                                                "</li>";
             }
-            if (chatId == 20158726) {
+            /*if (chatId == 20158726) {
                 messageList.innerHTML = "<li style=\"margin: 25px;\">" +
                                             "<p style=\"margin: 5px;font-size: 14px;\">Orthopedagoog, D. Aygun | Tijd</p>" +
                                             "<div style=\"max-width: 250px;min-width:250px;padding: 15px;background-color: #BBE1C3;border-radius: 15px;\">" +
@@ -200,7 +200,7 @@
                                                 "<p style=\"margin:0;\">Prima.</p>" +
                                             "</div>" +
                                         "</li>";
-            }
+            }*/
         }
 
         async function SendMessage()

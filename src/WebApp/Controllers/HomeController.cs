@@ -16,7 +16,7 @@ using System.Text;
 
 namespace WebApp.Controllers
 {
-    
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly MyContext _context;
