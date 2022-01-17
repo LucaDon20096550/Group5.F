@@ -19,6 +19,12 @@ namespace WebApp.Controllers
         {
             _context = context;
         }
+        
+        // GET: Admin
+        public async Task<IActionResult> Index()
+        {
+            return View();
+        }
 
         // GET: Admin/UserIndex
         public async Task<IActionResult> UserIndex()
