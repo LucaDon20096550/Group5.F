@@ -30,4 +30,9 @@
       <DependentUpon>zelfhulpgroep.html</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Areas\Identity\Pages\Account\Manage\ManageNavPages.cs">
+      <DependentUpon>_ManageNav.cshtml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

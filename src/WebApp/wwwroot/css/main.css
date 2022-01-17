@@ -1,8 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&display=swap");
 
+/* css voor alle pagina's */ 
 
 html {
-    font-family: "Montserrat";
+    overflow-x: hidden;
+    
 }
 
 h2 {
@@ -13,8 +14,9 @@ h2 {
 
 p {
     font-size: 14px;
-    font-weight: 325;
+    font-weight: 400;
     line-height: 25px;
+    color: #43414e;
 }
 
 main {
