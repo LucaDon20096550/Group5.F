@@ -11,6 +11,7 @@ public class ApplicationUser : IdentityUser
 	public string LastName { get; set; }
 	[Required(ErrorMessage = "Geboortedatum is niet ingevuld")]
     public DateTime DateOfBirth { get; set; }
+    public int ClientId { get; set; }
     public List<ApplicationUser> Guides { get; set; }
     public List<ApplicationUser> GuidedBy { get; set; }
     public List<Appointment> Appointments { get; set; }
