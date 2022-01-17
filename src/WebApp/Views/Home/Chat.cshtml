@@ -210,19 +210,16 @@
                 var Text = TextBox.value;
 
                 if (Text != ""){
-                    if (currentChat == 20158726 || currentChat == 20096550) {
+                    /*if (currentChat == 20158726 || currentChat == 20096550) {
                         var messageList = document.getElementById("messageList");
-                        const senderName = await fetch("/api/UserApi/" + '@Model.Id' + "/" + currentChat, {
-                            "method" : "get"
-                        }).then((i) => i.text());
                         messageList.innerHTML += "<li style=\"margin: 25px;margin-left: auto;\">" +
-                                                    "<p style=\"margin: 5px;font-size: 14px;\">" + senderName + " | Tijd</p>" +
+                                                    "<p style=\"margin: 5px;font-size: 14px;\">Karel Van Appel | Tijd</p>" +
                                                     "<div style=\"max-width: 250px;min-width:250px;padding: 15px;background-color: #BBE1C3;border-radius: 15px;\">" +
                                                         "<p style=\"margin:0;\">" + Text + "</p>" +
                                                     "</div>" +
                                                 "</li>";
                         TextBox.value = "";
-                    } else {
+                    } else {*/
                         const response = await fetch("/api/MessageApi/" + currentChat, {
                             "method" : "post",
                             body: Text
@@ -242,7 +239,7 @@
                                                     "</li>";
                             TextBox.value = "";
                         }
-                    }
+                    //}
                 }
             }
         }
