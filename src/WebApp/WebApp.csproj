@@ -22,12 +22,19 @@
     <PackageReference Include="FluentEmail.Razor" Version="3.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="wwwroot\PNG\medical-g44a3384bc_1280.png" />
     <None Update="Views\Samsor views\dossier.css">
       <DependentUpon>Dossiers.html</DependentUpon>
     </None>
     <None Update="Views\Samsor views\zelfhulpgroep.css">
       <DependentUpon>zelfhulpgroep.html</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Areas\Identity\Pages\Account\Manage\ManageNavPages.cs">
+      <DependentUpon>_ManageNav.cshtml</DependentUpon>
+    </Compile>
+    <Compile Update="Areas\Identity\Pages\Account\Manage\GerapporteerdeBerichten.cshtml.cs">
+      <DependentUpon>GerapporteerdeBerichten.cshtml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

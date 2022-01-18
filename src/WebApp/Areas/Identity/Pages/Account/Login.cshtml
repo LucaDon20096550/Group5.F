@@ -4,11 +4,21 @@
 @{
     ViewData["Title"] = "Log in";
 }
-<div class="row">
-    <div class="col-md-4">
-    </div>
-    <div class="col-md-4">
-        <section>
+
+<link rel="stylesheet" href="~/css/login.css">
+
+<div class="container">
+    <div class="row px-3">
+      <div class="col-lg-10 col-xl-9 card flex-row mx-auto px-0">
+        <div class="img-left d-none  d-md-flex">
+            <img src="~/PNG/mobiele-login-concept-illustratie_114360-135.jpg.webp" alt="">
+        </div>
+
+        <div class="card-body">
+          <h4 class="title text-center mt-4">
+            Login bij uw account
+          </h4>
+          <section>
             <form id="account" method="post">
                 <h4>Use a local account to log in.</h4>
                 <hr />
@@ -23,7 +33,7 @@
                     <input asp-for="Input.Password" class="form-control" />
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
-                <div class="form-group">
+                <div class="form-group-check">
                     <div class="checkbox">
                         <label asp-for="Input.RememberMe">
                             <input asp-for="Input.RememberMe" />
@@ -32,7 +42,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Log in</button>
+                    <button type="submit" class="btn my-2 px-5">Log in</button>
                 </div>
                 <div class="form-group">
                     <p>
@@ -47,11 +57,10 @@
                 </div>
             </form>
         </section>
+        </div>
+      </div>
     </div>
-    <div class="col-md-4">
-
-    </div>
-</div>
+  </div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
