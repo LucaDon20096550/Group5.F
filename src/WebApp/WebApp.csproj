@@ -33,5 +33,8 @@
     <Compile Update="Areas\Identity\Pages\Account\Manage\ManageNavPages.cs">
       <DependentUpon>_ManageNav.cshtml</DependentUpon>
     </Compile>
+    <Compile Update="Areas\Identity\Pages\Account\Manage\GerapporteerdeBerichten.cshtml.cs">
+      <DependentUpon>GerapporteerdeBerichten.cshtml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>
