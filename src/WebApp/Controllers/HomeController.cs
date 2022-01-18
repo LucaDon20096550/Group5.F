@@ -57,20 +57,15 @@ namespace WebApp.Controllers
             return View();
         }
 
-        // GET: Home/Visie
-        public IActionResult Visie()
-        {
-            return View();
-        }
-
+       
         // GET: Home/Klachteninformatie
         public IActionResult Klachteninformatie()
         {
             return View();
         }
         
-        // GET: Home/Specialisten
-        public IActionResult Specialisten()
+        // GET: Home/OnsTeam
+        public IActionResult OnsTeam()
         {
             return View();
         }
