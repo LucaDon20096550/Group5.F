@@ -1,0 +1,54 @@
+
+/* css voor alle pagina's */ 
+
+html {
+    overflow-x: hidden;
+    
+}
+
+h2 {
+    font-size: 23px;
+    font-weight: 500;
+    line-height: 30px;
+}
+
+p {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 25px;
+    color: #43414e;
+}
+
+main {
+    min-height: calc(100vh - 84px - 70px);
+}
+
+
+footer {
+    background-color: rgb(94, 94, 94);
+    padding: 20px;
+    text-align: center;
+    margin-top: 3em;
+}
+
+.btn {
+    background-color: rgb(164, 223, 170);
+    color: white;
+}
+
+#logo {
+    border: solid 3px rgb(164, 223, 170);
+    letter-spacing: 1px;
+}
+
+#footer-link {
+    font-size: 14px;
+    color: white;
+}
+
+#footer-link:hover {
+    color: rgb(164, 223, 170);
+}
+
+
+ 

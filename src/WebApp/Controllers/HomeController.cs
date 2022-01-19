@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -45,20 +45,66 @@ namespace WebApp.Controllers
             return View(await user);
         }
 
-        // GET: Home/AboutUs
-        public IActionResult AboutUs()
+        // GET: Home/OverOns
+        public IActionResult OverOns()
         {
             return View();
         }
         
-        // GET: Home/Doctors
-        public IActionResult Doctors()
+        // GET: Home/Zelfhulpgroepen
+        public IActionResult Zelfhulpgroepen()
+        {
+            // dit is al uitegevoerd niet meer uitvoeren!
+            // GroupChat groepschat = new GroupChat() {Name="test groepchat", Description = "Test description 1"};
+            // _context.Groups.Add(new Group(){Name = "Test groepnaam", GroupChat = groepschat });
+
+            // _context.Groups.RemoveRange(_context.Groups.Where(g => g.GroupChat == null));
+            // _context.SaveChanges();
+
+            List<Group> grouplist = _context.Groups.Include(g => g.GroupChat).Include(g => g.Users).ThenInclude(u => u.Guides).ToList();
+
+            return View(grouplist);
+        }
+
+       
+        // GET: Home/Klachteninformatie
+        public IActionResult Klachteninformatie()
         {
             return View();
         }
         
-        // GET: Home/Contact
-        public IActionResult Contact()
+        // GET: Home/OnsTeam
+        public IActionResult OnsTeam()
+        {
+            return View();
+        }
+
+        // GET: Home/Aanmelden
+        public IActionResult Aanmelden()
+        {
+            return View();
+        }
+
+        // GET: Home/AlgemeneVoorwaarden
+        public IActionResult AlgemeneVoorwaarden()
+        {
+            return View();
+        }
+
+        // GET: Home/PrivacyPolicy
+        public IActionResult PrivacyPolicy()
+        {
+            return View();
+        }
+
+        // GET: Home/OrthopedagoogProfiel
+        public IActionResult OrthopedagoogProfiel()
+        {
+            return View();
+        }
+        
+        // GET: Home/ExtraInformatie
+        public IActionResult ExtraInformatie()
         {
             return View();
         }
