@@ -40,6 +40,9 @@
                     <a class="nav-link" asp-area="" asp-controller="Home" asp-action="OverOns">Over ons</a>
                   </li>
                   <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="OnsTeam">Het team</a>
+                  </li>
+                  <li class="nav-item">
                     <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Zelfhulpgroepen">Zelfhulpgroepen</a>
                   </li>
                   <li>
@@ -48,13 +51,14 @@
                         Meer
                       </button>
                       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="OnsTeam">Ons team</a>
-                        <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Klachteninformatie">Klachteninformatie</a>
+                        <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="ExtraInformatie">Extra infromatie</a>
+                        <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Klachteninformatie">Klachten informatie</a>
                         <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="AlgemeneVoorwaarden">Algemene voorwaarden</a>
                         <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="PrivacyPolicy">Privacy policy</a>
                       </div>
                     </div>
                   </li>
+                  
                  
                   @if(!User.Identity.IsAuthenticated) 
               {
@@ -105,8 +109,8 @@
               </div>
 
               <ul class="nav col-md-4 d-flex justify-content-end">
-                <li><a href="#" id="footer-link" class="nav-link">Algemene voorwaarden</a></li>
-                <li><a href="#" id="footer-link" class="nav-link">Privacy verklaring</a></li>
+                <li><a  asp-controller="Home" asp-action="AlgemeneVoorwaarden" id="footer-link" class="nav-link">Algemene voorwaarden</a></li>
+                <li><a asp-controller="home" asp-action="PrivacyPolicy" id="footer-link" class="nav-link">Privacy verklaring</a></li>
               </ul>
           
             </footer>

@@ -12,6 +12,10 @@
     text-align: end;
 }
 
+a {
+    color: rgb(164,223,170);
+}
+
 .text-two {
     margin-left: 3em;
 }
@@ -28,7 +32,7 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    
+    width: 50%;
 }
 
 #secondimg {
@@ -68,6 +72,7 @@
 #bezoeken {
     margin-left: auto;
     margin-right: auto;
+    transform: translateY(20%);
 }
 
 #tijden {

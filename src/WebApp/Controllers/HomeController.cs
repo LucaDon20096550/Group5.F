@@ -102,6 +102,12 @@ namespace WebApp.Controllers
         {
             return View();
         }
+        
+        // GET: Home/ExtraInformatie
+        public IActionResult ExtraInformatie()
+        {
+            return View();
+        }
 
         // POST: Home/RegisterProfile
         [AllowAnonymous]
