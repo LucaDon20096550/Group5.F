@@ -10,7 +10,7 @@ using WebApp.Areas.Identity.Data;
 
 namespace WebApp.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    // [Authorize(Roles = "Administrator")]
     public class AdminController : Controller
     {
         private readonly MyContext _context;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -54,7 +54,16 @@ namespace WebApp.Controllers
         // GET: Home/Zelfhulpgroepen
         public IActionResult Zelfhulpgroepen()
         {
-            return View();
+            // dit is al uitegevoerd niet meer uitvoeren!
+            // GroupChat groepschat = new GroupChat() {Name="test groepchat", Description = "Test description 1"};
+            // _context.Groups.Add(new Group(){Name = "Test groepnaam", GroupChat = groepschat });
+
+            // _context.Groups.RemoveRange(_context.Groups.Where(g => g.GroupChat == null));
+            // _context.SaveChanges();
+
+            List<Group> grouplist = _context.Groups.Include(g => g.GroupChat).Include(g => g.Users).ThenInclude(u => u.Guides).ToList();
+
+            return View(grouplist);
         }
 
        
