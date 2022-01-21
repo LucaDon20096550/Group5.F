@@ -20,6 +20,7 @@ namespace WebApp.Controllers
     {
         private readonly MyContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+
         private readonly SignInManager<ApplicationUser> _signInManager;
 
         public HomeController(MyContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
@@ -30,8 +31,7 @@ namespace WebApp.Controllers
         }
 
         // GET: Home
-        public IActionResult Index()
-        {
+        public IActionResult Index() {
             return View();
         }
         // GET: Home/Chat

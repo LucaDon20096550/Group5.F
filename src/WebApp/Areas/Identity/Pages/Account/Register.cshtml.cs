@@ -79,6 +79,7 @@ namespace WebApp.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { ClientId = Input.ClientId, UserName = Input.Email, Email = Input.Email, Guides = new List<ApplicationUser>(), GuidedBy = new List<ApplicationUser>(), Appointments = new List<Appointment>(), Files = new List<File>(), Groups = new List<Group>(), PrivateChats = new List<PrivateChat>() };
+                await _userManager.AddToRoleAsync(user, "Client");
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
