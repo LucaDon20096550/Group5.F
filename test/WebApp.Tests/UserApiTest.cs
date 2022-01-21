@@ -12,7 +12,7 @@ using System.Linq;
 
 namespace WebApp.Tests
 {
-    public class ChatApiTest
+    public class UserApiTest
     {
         private static int database = 0;
         private static MyContext _context;
@@ -72,8 +72,9 @@ namespace WebApp.Tests
         }
 
         [Fact]
-        public void Test1()
+        public void GetUserNameTest()
         {
+            
         }
     }
 }
