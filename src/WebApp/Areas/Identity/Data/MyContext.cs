@@ -14,8 +14,7 @@ namespace WebApp.Areas.Identity.Data
             : base(options)
         {
         }
-
-        public DbSet<ApplicationUser> Users { get; set; }
+        
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<OverviewFile> OverviewFiles { get; set; }
         public DbSet<File> Files { get; set; }

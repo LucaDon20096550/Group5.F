@@ -57,9 +57,9 @@ namespace WebApp.Controllers
         }*/
 
         // GET: Admin/UserIndex
-        public async Task<IActionResult> UserIndex()
+        public IActionResult UserIndex()
         {
-            return View(await _userManager.Users.ToListAsync());
+            return View(_context.Users.ToList());
         }
 
         // GET: Admin/UserDetails/5
