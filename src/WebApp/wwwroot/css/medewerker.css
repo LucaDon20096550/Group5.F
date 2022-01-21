@@ -1,0 +1,35 @@
+.validation-summary-errors{
+    background-color: rgba(187, 225, 195, 0.69);
+    padding: 20px;
+    max-width: 315px;
+    margin-top: 10px;
+}
+
+.triangle{
+    width: 0;
+    height: 0;
+    border-top: 25px solid transparent;
+    border-right: 50px solid rgba(187, 225, 195, 0.69);
+    border-bottom: 25px solid transparent;
+}
+
+@media screen and (min-width: 1200px){
+    .rectangle{
+        padding: 0;
+        width: 14px;
+        height: 58px;
+        background-color: rgba(187, 225, 195, 0.69);
+    }
+}
+
+.uLine {
+    margin-top: 13px;
+    padding: 0;
+    height: 1px;
+    width: 669px;
+    background-color: #C4C4C4;
+}
+
+
+
+

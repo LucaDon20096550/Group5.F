@@ -15,6 +15,18 @@
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
+            <th>
+                Chat frequentie
+            </th>
+            <th>
+                A. Leden
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedByName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedOn)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -23,6 +35,18 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @item.GroupChat.Messages.Count();
+            </td>
+            <td>
+                @item.Users.Count();
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedByName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedOn)
             </td>
             <td>
                 <a asp-action="GroupEdit" asp-route-id="@item.Id">Edit</a> |
