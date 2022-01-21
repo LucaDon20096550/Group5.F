@@ -16,7 +16,6 @@ using System.Text;
 
 namespace WebApp.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         private readonly MyContext _context;
@@ -35,8 +34,8 @@ namespace WebApp.Controllers
         {
             return View();
         }
-
         // GET: Home/Chat
+        [Authorize]
         public async Task<IActionResult> Chat()
         {
             var user = _userManager.GetUserAsync(User);
@@ -50,6 +49,7 @@ namespace WebApp.Controllers
         }
         
         // GET: Home/Zelfhulpgroepen
+        [Authorize]
         public IActionResult Zelfhulpgroepen()
         {
             // dit is al uitegevoerd niet meer uitvoeren!
@@ -108,7 +108,6 @@ namespace WebApp.Controllers
         }
 
         // POST: Home/RegisterProfile
-        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> RegisterProfile(long ClientId, string FullName, string iban, long bsn, DateTime DateOfBirth)
         {
