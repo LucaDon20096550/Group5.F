@@ -16,11 +16,11 @@ using System.Text;
 
 namespace WebApp.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         private readonly MyContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+
         private readonly SignInManager<ApplicationUser> _signInManager;
 
         public HomeController(MyContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
@@ -31,15 +31,24 @@ namespace WebApp.Controllers
         }
 
         // GET: Home
-        public IActionResult Index()
-        {
+        public IActionResult Index() {
             return View();
         }
-
         // GET: Home/Chat
+        [Authorize]
         public async Task<IActionResult> Chat()
         {
             var user = _userManager.GetUserAsync(User);
+            var userNameList = new List<string>();
+            var userApi = new UserApi(_context, _userManager);
+            foreach (var userInList in _context.Users)
+            {
+                var name = await userApi.GetUserName((await user).Id, 0);
+                if (name != null) {
+                    userNameList.Add(name);
+                }
+            }
+            ViewData["userNameList"] = userNameList;
             return View(await user);
         }
 
@@ -50,6 +59,7 @@ namespace WebApp.Controllers
         }
         
         // GET: Home/Zelfhulpgroepen
+        [Authorize]
         public IActionResult Zelfhulpgroepen()
         {
             // dit is al uitegevoerd niet meer uitvoeren!
@@ -108,7 +118,6 @@ namespace WebApp.Controllers
         }
 
         // POST: Home/RegisterProfile
-        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> RegisterProfile(long ClientId, string FullName, string iban, long bsn, DateTime DateOfBirth)
         {
@@ -148,6 +157,13 @@ namespace WebApp.Controllers
 
             return View(response.IsSuccessStatusCode);
         }
+        
+        // // GET: Home/StartChatWithUser
+        // public IActionResult StartChatWithUser()
+        // {
+        //     var user = _userManager.GetUserAsync(User);
+        //     return View();
+        // }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
