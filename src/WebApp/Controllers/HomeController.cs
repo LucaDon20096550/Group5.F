@@ -39,6 +39,16 @@ namespace WebApp.Controllers
         public async Task<IActionResult> Chat()
         {
             var user = _userManager.GetUserAsync(User);
+            var userNameList = new List<string>();
+            var userApi = new UserApi(_context, _userManager);
+            foreach (var userInList in _context.Users)
+            {
+                var name = await userApi.GetUserName((await user).Id, 0);
+                if (name != null) {
+                    userNameList.Add(name);
+                }
+            }
+            ViewData["userNameList"] = userNameList;
             return View(await user);
         }
 
@@ -147,6 +157,13 @@ namespace WebApp.Controllers
 
             return View(response.IsSuccessStatusCode);
         }
+        
+        // // GET: Home/StartChatWithUser
+        // public IActionResult StartChatWithUser()
+        // {
+        //     var user = _userManager.GetUserAsync(User);
+        //     return View();
+        // }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
