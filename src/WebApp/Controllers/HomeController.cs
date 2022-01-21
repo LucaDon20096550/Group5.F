@@ -20,18 +20,21 @@ namespace WebApp.Controllers
     {
         private readonly MyContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public HomeController(MyContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public HomeController(MyContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
+            // roleManager.CreateAsync(new IdentityRole("Employee"));
+            // roleManager.CreateAsync(new IdentityRole("Client"));
+            // roleManager.CreateAsync(new IdentityRole("Caregiver"));
         }
 
         // GET: Home
-        public IActionResult Index()
-        {
+        public IActionResult Index() {
             return View();
         }
         // GET: Home/Chat
