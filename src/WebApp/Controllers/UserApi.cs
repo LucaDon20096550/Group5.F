@@ -27,7 +27,7 @@ namespace WebApp.Controllers
         public async Task<string> GetUserName(string userId, int ChatId)
         {
             var IsAllowedToGet = false;
-            var user = _userManager.Users.Single(u => u.Id == userId);
+            var user = await _userManager.FindByIdAsync(userId);
             var LoggedInUser = await _userManager.GetUserAsync(User);
 
             if (LoggedInUser == user) IsAllowedToGet = true;
