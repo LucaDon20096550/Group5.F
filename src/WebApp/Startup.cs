@@ -12,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebApp.Areas.Identity.Data;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
-using WebApp.Areas.Identity.Services;
+// using WebApp.Areas.Identity.Services;
 using System.Net.Mail;
 using System.Net;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -34,11 +34,11 @@ namespace WebApp
         {
             services.AddControllersWithViews()
                     .AddNewtonsoftJson();
-            
+
             services.AddRazorPages().AddRazorRuntimeCompilation();
 
             services.AddDbContext<MyContext>(builder => builder.UseSqlite("Data Source=database.db"));
-            services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
                     .AddDefaultUI()
                     .AddEntityFrameworkStores<MyContext>()
                     .AddRoles<IdentityRole>()
