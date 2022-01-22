@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -26,27 +25,26 @@ namespace WebApp.Controllers
         }
 
         // GET: api/MessageApi/5
-        [HttpGet("{ChatId}")]
-        public async Task<List<Message>> GetMessages(int ChatId)
+        [HttpGet("{chatId:int}")]
+        public async Task<List<Message>> GetMessages(int chatId)
         {
             var user = await _userManager.GetUserAsync(User);
-            if (_context.Chats.Any()) {
-                var chat = _context.Chats.Single(c => c.Id == ChatId);
-                if (user.PrivateChats.Contains(chat) || user.Groups.Select(g => g.GroupChat).Contains(chat)) {
-                    return chat.Messages.ToList();
-                }
+            if (!_context.Chats.Any()) return new List<Message>();
+            var chat = _context.Chats.Single(c => c.Id == chatId);
+            if (user.PrivateChats.Contains(chat) || user.Groups.Select(g => g.GroupChat).Contains(chat)) {
+                return chat.Messages.ToList();
             }
             return new List<Message>();
         }
 
         // POST: api/MessageApi/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost("{ChatId}")]
-        public async Task<Message> PostMessage(int ChatId, string Text)
+        [HttpPost("{chatId:int}")]
+        public async Task<Message> PostMessage(int chatId, string text)
         {
             var user = await _userManager.GetUserAsync(User);
-            var chat = _context.Chats.Single(c => c.Id == ChatId);
-            var message = new Message(){Text = Text, DateTimeSent = DateTime.Now, Sender = user, Chat = chat};
+            var chat = _context.Chats.Single(c => c.Id == chatId);
+            var message = new Message(){Text = text, DateTimeSent = DateTime.Now, Sender = user, Chat = chat};
             chat.Messages.Add(message);
             await _context.SaveChangesAsync();
             return message;
@@ -54,7 +52,7 @@ namespace WebApp.Controllers
 
         // PUT: api/MessageApi/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPut("{id:int}")]
         public async Task<IActionResult> PutMessage(int id, Message message)
         {
             if (id != message.Id)
@@ -84,7 +82,7 @@ namespace WebApp.Controllers
         }
 
         // DELETE: api/MessageApi/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteMessage(int id)
         {
             var message = await _context.Messages.FindAsync(id);

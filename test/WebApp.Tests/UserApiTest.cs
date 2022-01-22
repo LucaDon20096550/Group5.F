@@ -18,7 +18,7 @@ namespace WebApp.Tests
         private static MyContext _context;
         private static Mock<UserManager<ApplicationUser>> _userManagerMock;
 
-        public static Mock<UserManager<ApplicationUser>> MockUserManager()
+        private static Mock<UserManager<ApplicationUser>> MockUserManager()
         {
             var store = new Mock<IUserStore<ApplicationUser>>();
             var mgr = new Mock<UserManager<ApplicationUser>>(store.Object, null, null, null, null, null, null, null, null);
@@ -33,7 +33,7 @@ namespace WebApp.Tests
             return mgr;
         }
 
-        private AdminController createController() {
+        private static AdminController CreateController() {
             database++;
             _context = new MyContext( new DbContextOptionsBuilder<MyContext>().UseInMemoryDatabase("TemporaryDatabase" + database).Options );
             _userManagerMock = MockUserManager();

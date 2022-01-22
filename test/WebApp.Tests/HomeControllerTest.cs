@@ -16,10 +16,10 @@ namespace WebApp.Tests
     {
         private static int database = 0;
         private static MyContext _context;
-        private static Mock<UserManager<ApplicationUser>> _userManager;
-        private static Mock<SignInManager<ApplicationUser>> _signInManager;
+        private static Mock<UserManager<ApplicationUser>> _userManagerMock;
+        private static Mock<SignInManager<ApplicationUser>> _signInManagerMock;
 
-        public static Mock<UserManager<ApplicationUser>> MockUserManager()
+        private static Mock<UserManager<ApplicationUser>> MockUserManager()
         {
             var store = new Mock<IUserStore<ApplicationUser>>();
             var mgr = new Mock<UserManager<ApplicationUser>>(store.Object, null, null, null, null, null, null, null, null);
@@ -34,9 +34,9 @@ namespace WebApp.Tests
             return mgr;
         }
 
-        public static Mock<SignInManager<ApplicationUser>> MockSignInManager(UserManager<ApplicationUser> userManager){
+        private static Mock<SignInManager<ApplicationUser>> MockSignInManager(){
             var mgr = new Mock<SignInManager<ApplicationUser>>(
-                        userManager,
+                        _userManagerMock,
                         new Mock<Microsoft.AspNetCore.Http.IHttpContextAccessor>().Object,
                         new Mock<IUserClaimsPrincipalFactory<ApplicationUser>>().Object,
                         new Mock<Microsoft.Extensions.Options.IOptions<IdentityOptions>>().Object,
@@ -44,114 +44,112 @@ namespace WebApp.Tests
                         new Mock<Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider>().Object,
                         new Mock<IUserConfirmation<ApplicationUser>>().Object
             );
-
-            _signInManager = mgr;
             return mgr;
         }
 
-        private HomeController createController() {
+        private static HomeController CreateController() {
             database++;
             _context = new MyContext(new DbContextOptionsBuilder<MyContext>()
                 .UseInMemoryDatabase("TemporaryDatabase" + database).Options);
-            var userManager = MockUserManager();
-            var signInManager = MockSignInManager(userManager.Object);
+            _userManagerMock = MockUserManager();
+            _signInManagerMock = MockSignInManager();
             return new HomeController(
                 _context,
-                userManager.Object,
-                signInManager.Object);
+                _userManagerMock.Object,
+                _signInManagerMock.Object);
         }
 
         [Fact]
         public void IndexTest()
         {
-            var homeController = createController();
+            var homeController = CreateController();
             var viewResult = Xunit.Assert.IsType<ViewResult>(homeController.Index());
-            Xunit.Assert.Equal(null, viewResult.Model);
+            Xunit.Assert.Null(viewResult.Model);
         }
 
         [Fact]
         public async void ChatTest()
         {
-            var homeController = createController();
+            var homeController = CreateController();
 
             var iActionResult = Xunit.Assert.IsType<Task<IActionResult>>(homeController.Chat());
             var viewResult = Xunit.Assert.IsType<ViewResult>(await iActionResult);
-            Xunit.Assert.Equal(null, viewResult.Model);
+            Xunit.Assert.Null(viewResult.Model);
 
-            _userManager.Verify(p => p.GetUserAsync(It.IsAny<System.Security.Claims.ClaimsPrincipal>()), Times.Once());
+            _userManagerMock.Verify(p => p.GetUserAsync(It.IsAny<System.Security.Claims.ClaimsPrincipal>()), Times.Once());
         }
 
         [Fact]
         public void OverOnsTest()
         {
-            var homeController = createController();
+            var homeController = CreateController();
             var viewResult = Xunit.Assert.IsType<ViewResult>(homeController.OverOns());
-            Xunit.Assert.Equal(null, viewResult.Model);
+            Xunit.Assert.Null(viewResult.Model);
         }
 
         [Fact]
         public void ZelfhulpgroepenTest()
         {
-            var homeController = createController();
+            var homeController = CreateController();
             var viewResult = Xunit.Assert.IsType<ViewResult>(homeController.Zelfhulpgroepen(null, null, 0, 0));
             var viewModel = Xunit.Assert.IsType<List<Group>>(viewResult.Model);
-            Xunit.Assert.Equal(0, viewModel.Count);
+            Xunit.Assert.Empty(viewModel);
         }
 
         [Fact]
         public void KlachteninformatieTest()
         {
-            var homeController = createController();
+            var homeController = CreateController();
             var viewResult = Xunit.Assert.IsType<ViewResult>(homeController.Klachteninformatie());
-            Xunit.Assert.Equal(null, viewResult.Model);
+            Xunit.Assert.Null(viewResult.Model);
         }
 
         [Fact]
         public void OnsTeamTest()
         {
-            var homeController = createController();
+            var homeController = CreateController();
             var viewResult = Xunit.Assert.IsType<ViewResult>(homeController.OnsTeam());
-            Xunit.Assert.Equal(null, viewResult.Model);
+            Xunit.Assert.Null(viewResult.Model);
         }
 
         [Fact]
         public void AanmeldenTest()
         {
-            var homeController = createController();
+            var homeController = CreateController();
             var viewResult = Xunit.Assert.IsType<ViewResult>(homeController.Aanmelden());
-            Xunit.Assert.Equal(null, viewResult.Model);
+            Xunit.Assert.Null(viewResult.Model);
         }
 
         [Fact]
         public void AlgemeneVoorwaardenTest()
         {
-            var homeController = createController();
+            var homeController = CreateController();
             var viewResult = Xunit.Assert.IsType<ViewResult>(homeController.AlgemeneVoorwaarden());
-            Xunit.Assert.Equal(null, viewResult.Model);
+            Xunit.Assert.Null(viewResult.Model);
         }
 
         [Fact]
         public void PrivacyPolicyTest()
         {
-            var homeController = createController();
+            var homeController = CreateController();
             var viewResult = Xunit.Assert.IsType<ViewResult>(homeController.PrivacyPolicy());
-            Xunit.Assert.Equal(null, viewResult.Model);
+            Xunit.Assert.Null(viewResult.Model);
         }
 
         [Fact]
         public void OrthopedagoogProfielTest()
         {
-            var homeController = createController();
+            var homeController = CreateController();
             var viewResult = Xunit.Assert.IsType<ViewResult>(homeController.OrthopedagoogProfiel());
-            Xunit.Assert.Equal(null, viewResult.Model);
+            Xunit.Assert.Null(viewResult.Model);
         }
 
         [Fact]
         public void ExtraInformatieTest()
         {
-            var homeController = createController();
+            var homeController = CreateController();
             var viewResult = Xunit.Assert.IsType<ViewResult>(homeController.ExtraInformatie());
-            Xunit.Assert.Equal(null, viewResult.Model);
+            Xunit.Assert.Null(viewResult.Model);
         }
 
         [Theory]
@@ -178,7 +176,7 @@ namespace WebApp.Tests
             }
 
             HttpClient client = new HttpClient();
-            var homeController = createController();
+            var homeController = CreateController();
 
             var viewResult = Xunit.Assert.IsType<ViewResult>(await homeController.RegisterProfile(id, fullName, iban, bsn, dateOfBirth));
             //Xunit.Assert.Equal(true, viewResult.Model);

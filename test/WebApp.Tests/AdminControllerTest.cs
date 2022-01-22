@@ -18,7 +18,7 @@ namespace WebApp.Tests
         private static MyContext _context;
         private static Mock<UserManager<ApplicationUser>> _userManagerMock;
 
-        public static Mock<UserManager<ApplicationUser>> MockUserManager()
+        private static Mock<UserManager<ApplicationUser>> MockUserManager()
         {
             var store = new Mock<IUserStore<ApplicationUser>>();
             var mgr = new Mock<UserManager<ApplicationUser>>(store.Object, null, null, null, null, null, null, null, null);
@@ -33,7 +33,7 @@ namespace WebApp.Tests
             return mgr;
         }
 
-        private AdminController createController() {
+        private static AdminController CreateController() {
             database++;
             _context = new MyContext( new DbContextOptionsBuilder<MyContext>().UseInMemoryDatabase("TemporaryDatabase" + database).Options );
             _userManagerMock = MockUserManager();
@@ -74,15 +74,15 @@ namespace WebApp.Tests
         [Fact]
         public void IndexTest()
         {
-            var adminController = createController();
+            var adminController = CreateController();
             var viewResult = Xunit.Assert.IsType<ViewResult>(adminController.Index());
-            Xunit.Assert.Equal(null, viewResult.Model);
+            Xunit.Assert.Null(viewResult.Model);
         }
 
         [Fact]
         public async void UserIndexTest()
         {
-            var adminController = createController();
+            var adminController = CreateController();
             var viewResult = Xunit.Assert.IsType<ViewResult>(adminController.UserIndex());
             var viewModel = Xunit.Assert.IsType<List<ApplicationUser>>(viewResult.Model);
             Xunit.Assert.Equal(3, viewModel.Count());
@@ -97,7 +97,7 @@ namespace WebApp.Tests
         [InlineData("4", false)]
         public async void UserDetailsTest(string id, bool exists)
         {
-            var adminController = createController();
+            var adminController = CreateController();
             var iActionResult = await Xunit.Assert.IsType<Task<IActionResult>>(adminController.UserDetails(id));
 
             // if (exists) {
@@ -112,9 +112,9 @@ namespace WebApp.Tests
         [Fact]
         public void UserCreateGetTest()
         {
-            var adminController = createController();
+            var adminController = CreateController();
             var viewResult = Xunit.Assert.IsType<ViewResult>(adminController.UserCreate());
-            Xunit.Assert.Equal(null, viewResult.Model);
+            Xunit.Assert.Null(viewResult.Model);
         }
 
         [Theory]
@@ -125,7 +125,7 @@ namespace WebApp.Tests
         [InlineData("5", false)]
         [InlineData("6", false)]
         public async void UserCreatePostTest(string id, bool exists) {
-            var adminController = createController();
+            var adminController = CreateController();
             var user = new ApplicationUser(){ Id = id };
             var iActionResult = await Xunit.Assert.IsType<Task<IActionResult>>(adminController.UserCreate(user));
 
@@ -149,7 +149,7 @@ namespace WebApp.Tests
         [InlineData("4", false)]
         public async void UserEditGetTest(string id, bool exists)
         {
-            var adminController = createController();
+            var adminController = CreateController();
             var iActionResult = await Xunit.Assert.IsType<Task<IActionResult>>(adminController.UserEdit(id));
 
             // if (exists) {
@@ -170,7 +170,7 @@ namespace WebApp.Tests
         public async void UserEditPostTest(string id, string UserId, bool expected)
         {
             var user = new ApplicationUser(){ Id = UserId };
-            var adminController = createController();
+            var adminController = CreateController();
             var iActionResult = await Xunit.Assert.IsType<Task<IActionResult>>(adminController.UserEdit(id, user));
 
             if (expected) {
@@ -189,7 +189,7 @@ namespace WebApp.Tests
         [InlineData("4", false)]
         public async void UserDeleteTest(string id, bool exists)
         {
-            var adminController = createController();
+            var adminController = CreateController();
             var iActionResult = await Xunit.Assert.IsType<Task<IActionResult>>(adminController.UserDelete(id));
 
             // if (exists) {
@@ -210,7 +210,7 @@ namespace WebApp.Tests
         [InlineData("4", false)]
         public async void UserDeleteConfirmedTest(string id, bool exists)
         {
-            var adminController = createController();
+            var adminController = CreateController();
             var iActionResult = await Xunit.Assert.IsType<Task<IActionResult>>(adminController.UserDeleteConfirmed(id));
             _userManagerMock.Verify(u => u.FindByIdAsync(It.Is<string>(s => s == id)), Times.Once());
 
@@ -227,7 +227,7 @@ namespace WebApp.Tests
         [Fact]
         public async void GroupIndexTest()
         {
-            var adminController = createController();
+            var adminController = CreateController();
             var iActionResult = await Xunit.Assert.IsType<Task<IActionResult>>(adminController.GroupIndex());
             var viewResult = Xunit.Assert.IsType<ViewResult>(iActionResult);
             var viewModel = Xunit.Assert.IsType<List<Group>>(viewResult.Model);
@@ -235,7 +235,6 @@ namespace WebApp.Tests
         }
         
         [Theory]
-        [InlineData(null, false)]
         [InlineData(0, false)]
         [InlineData(1, true)]
         [InlineData(2, true)]
@@ -243,33 +242,32 @@ namespace WebApp.Tests
         [InlineData(4, false)]
         public async void GroupDetailsTest(int id, bool exists)
         {
-            var adminController = createController();
+            var adminController = CreateController();
             var iActionResult = await Xunit.Assert.IsType<Task<IActionResult>>(adminController.GroupDetails(id));
 
             if (exists) {
                 var viewResult = Xunit.Assert.IsType<ViewResult>(iActionResult);
-                Xunit.Assert.Equal(null, viewResult.ViewName);
-                Xunit.Assert.Equal(_context.Groups.Find(id), viewResult.Model);
+                Xunit.Assert.Null(viewResult.ViewName);
+                Xunit.Assert.Equal(await _context.Groups.FindAsync(id), viewResult.Model);
             } else Xunit.Assert.IsType<NotFoundResult>(iActionResult);
         }
 
         [Fact]
         public void GroupCreateGetTest()
         {
-            var adminController = createController();
+            var adminController = CreateController();
             var viewResult = Xunit.Assert.IsType<ViewResult>(adminController.GroupCreate());
-            Xunit.Assert.Equal(null, viewResult.Model);
+            Xunit.Assert.Null(viewResult.Model);
         }
 
         [Theory]
-        [InlineData(null, false)]
         [InlineData(0, false)]
         [InlineData(1, true)]
         [InlineData(2, true)]
         [InlineData(3, true)]
         [InlineData(4, false)]
         public async void GroupCreatePostTest(int id, bool exists) {
-            var adminController = createController();
+            var adminController = CreateController();
             var group = new Group(){ Id = id,
                                      Name = "TestGroup",
                                      GroupChat = new GroupChat(){
@@ -289,7 +287,6 @@ namespace WebApp.Tests
         }
 
         [Theory]
-        [InlineData(null, false)]
         [InlineData(0, false)]
         [InlineData(1, true)]
         [InlineData(2, true)]
@@ -298,25 +295,25 @@ namespace WebApp.Tests
         public async void GroupEditGetTest(int id, bool exists)
         {
             var group = _context.Groups.FindAsync(id);
-            var adminController = createController();
+            var adminController = CreateController();
             var iActionResult = await Xunit.Assert.IsType<Task<IActionResult>>(adminController.GroupEdit(id));
 
             if (exists) {
                 var viewResult = Xunit.Assert.IsType<ViewResult>(iActionResult);
-                Xunit.Assert.Equal(null, viewResult.ViewName);
+                Xunit.Assert.Null(viewResult.ViewName);
                 Xunit.Assert.IsType<Group>(viewResult.Model);
             } else Xunit.Assert.IsType<NotFoundResult>(iActionResult);
         }
 
         [Theory]
-        [InlineData(null, null, false)]
+        [InlineData(0, 0, false)]
         [InlineData(1, 1, true)]
         [InlineData(2, 3, false)]
         [InlineData(3, 3, true)]
         [InlineData(4, 4, false)]
-        public async void GroupEditPostTest(int id, int GroupId, bool expected)
+        public async void GroupEditPostTest(int id, int groupId, bool expected)
         { 
-            var adminController = createController();
+            var adminController = CreateController();
 
             if (expected) {
                 var group = _context.Groups.Find(id);
@@ -338,7 +335,6 @@ namespace WebApp.Tests
         }
 
         [Theory]
-        [InlineData(null, false)]
         [InlineData(0, false)]
         [InlineData(1, true)]
         [InlineData(2, true)]
@@ -347,18 +343,17 @@ namespace WebApp.Tests
         public async void GroupDeleteTest(int id, bool exists)
         {
             var group = _context.Groups.FindAsync(id);
-            var adminController = createController();
+            var adminController = CreateController();
             var iActionResult = await Xunit.Assert.IsType<Task<IActionResult>>(adminController.GroupDelete(id));
 
             if (exists) {
                 var viewResult = Xunit.Assert.IsType<ViewResult>(iActionResult);
-                Xunit.Assert.Equal(null, viewResult.ViewName);
+                Xunit.Assert.Null(viewResult.ViewName);
                 Xunit.Assert.IsType<Group>(viewResult.Model);
             } else Xunit.Assert.IsType<NotFoundResult>(iActionResult);
         }
 
         [Theory]
-        [InlineData(null, false)]
         [InlineData(0, false)]
         [InlineData(1, true)]
         [InlineData(2, true)]
@@ -366,7 +361,7 @@ namespace WebApp.Tests
         [InlineData(4, false)]
         public async void GroupDeleteConfirmedTest(int id, bool exists)
         {
-            var adminController = createController();
+            var adminController = CreateController();
 
             if (exists) {
                 var iActionResult = await Xunit.Assert.IsType<Task<IActionResult>>(adminController.GroupDeleteConfirmed(id));
