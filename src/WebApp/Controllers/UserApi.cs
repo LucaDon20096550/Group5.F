@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -50,6 +51,31 @@ namespace WebApp.Controllers
                     return "Geen naam";
             }
             return "Error";
+        }
+        
+        // GET: api/UserApi
+        [HttpGet]
+        public async Task<List<string>> GetUserNames()
+        {
+            HttpClient client = new HttpClient();
+            var userNames = new List<string>();
+            foreach (var user in _context.Users)
+            {
+                if (user.ClientId != null)
+                {
+                    HttpResponseMessage response = await client.GetAsync(
+                        "https://orthopedagogie-zmdh.herokuapp.com/clienten?sleutel=775610609&clientid=" + user.ClientId);
+                    response.EnsureSuccessStatusCode();
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    var index1 = responseBody.IndexOf("volledigenaam");
+                    if (index1 != -1) {
+                        var index2 = responseBody.Substring(index1).IndexOf(",");
+                        userNames.Add(responseBody.Substring(index1+16, index2-index1));
+                    }
+                }
+            }
+
+            return userNames;
         }
     }
 }
