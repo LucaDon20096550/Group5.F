@@ -41,17 +41,20 @@
             </ul>
         </div>
     </div>
-
-    <div class="row">
-        <div class="d-flex flex-row mt-5 mx-2">
-            <h4 class="title-beheer nav_titel_beheer">Beheer</h4>
-            <ul class="profile_nav" style="list-style-type: none;">
-                <li><a id="Zelfhulpgroepen" asp-page="./Zelfhulpgroepen">Zelfhulpgroepen</a></li>
-                <li><a  id="Gebruikers" asp-page="./Gebruikers">Gebruikers</a></li>
-                <li><a  id="Gerapporteerde Berichten" asp-page="./GerapporteerdeBerichten">Gerapporteerde Berichten</a></li>
-            </ul>
-        </div>
-    </div>
+    @{
+        if(User.IsInRole("Employee") || User.IsInRole("Administrator")) {
+            <div class="row">
+                <div class="d-flex flex-row mt-5 mx-2">
+                    <h4 class="title-beheer nav_titel_beheer">Beheer</h4>
+                    <ul class="profile_nav" style="list-style-type: none;">
+                        <li><a id="Zelfhulpgroepen" asp-page="./Zelfhulpgroepen">Zelfhulpgroepen</a></li>
+                        <li><a  id="Gebruikers" asp-page="./Gebruikers">Gebruikers</a></li>
+                        <li><a  id="Gerapporteerde Berichten" asp-page="./GerapporteerdeBerichten">Gerapporteerde Berichten</a></li>
+                    </ul>
+                </div>
+            </div>
+        }
+    }
 
     <div class="row">
         <div class="d-flex flex-row mt-5 mx-2">
@@ -61,16 +64,20 @@
             </ul>
         </div>
     </div>
-
-    <div class="row">
-        <div class="d-flex flex-row mt-5 mx-2">
-            <h4 class="title-beheer nav_titel_beheer">Administratie</h4>
-            <ul class="profile_nav" style="list-style-type: none;">
-                <li>Client Inschrijven</li>
-                <li>Medewerker Inschrijven</li>
-            </ul>
-        </div>
-    </div>
+        @{
+            if(User.IsInRole("Employee") || User.IsInRole("Administrator")) {
+                <div class="row">
+                    <div class="d-flex flex-row mt-5 mx-2">
+                        <h4 class="title-beheer nav_titel_beheer">Administratie</h4>
+                        <ul class="profile_nav" style="list-style-type: none;">
+                            <li><a id="clientcreatea" asp-page="./ClientCreate">Client Inschrijven</a></li>
+                            <li><a id="employeecreatea" asp-page="./EmployeeCreate">Medewerker Inschrijven</a></li>
+                            <li><a id="caregivera" asp-page="./CaregiverCreate">Verzorger/Ouder Inschrijven</a></li>
+                        </ul>
+                    </div>
+                </div>
+            }
+        }
     </div>
 </section>
 

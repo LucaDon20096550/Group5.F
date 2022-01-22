@@ -25,7 +25,7 @@ namespace WebApp.Areas.Identity.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
+            
             // Setting up keys
             builder.Entity<Appointment>()
                 .HasKey(a => a.Id);
