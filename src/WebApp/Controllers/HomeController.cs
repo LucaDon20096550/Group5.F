@@ -39,7 +39,7 @@ namespace WebApp.Controllers
         public async Task<IActionResult> Chat()
         {
             var user = _userManager.GetUserAsync(User);
-            var userNameList = new List<string>();
+            /*var userNameList = new List<string>();
             var userApi = new UserApi(_context, _userManager);
             foreach (var userInList in _context.Users)
             {
@@ -48,7 +48,7 @@ namespace WebApp.Controllers
                     userNameList.Add(name);
                 }
             }
-            ViewData["userNameList"] = userNameList;
+            ViewData["userNameList"] = userNameList;*/
             return View(await user);
         }
 
