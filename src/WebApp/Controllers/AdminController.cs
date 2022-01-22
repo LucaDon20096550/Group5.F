@@ -185,11 +185,6 @@ namespace WebApp.Controllers
             return _context.Users.Any(e => e.Id == id);
         }
 
-
-
-
-
-
         // GET: Admin/GroupIndex
         public async Task<IActionResult> GroupIndex()
         {
