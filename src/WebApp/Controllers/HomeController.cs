@@ -57,21 +57,49 @@ namespace WebApp.Controllers
         {
             return View();
         }
+
+        public IQueryable<Group> SearchGroup(IQueryable<Group> list, string search) {
+            if (search == null) {
+                return list;
+            } else {
+                return list.Where(g => g.Name.Contains(search));
+            }
+        }
+
+            public IQueryable<Group> Order(IQueryable<Group> list, string order) {
+            switch(order) {
+                case "AToZ":
+                    return list.OrderBy(g => g.Name.ToLower());
+                case "ZToA":
+                    return list.OrderByDescending(g => g.Name.ToLower());
+                default:
+                    return list.OrderBy(g => g.Name.ToLower());
+            }
+        }
+
+        public IQueryable<Group> Pagination(IQueryable<Group> list, int page, int amount) {
+            if (page < 0)
+                page = 0;
+            return list.Skip(page * amount ).Take(amount);
+        }   
         
         // GET: Home/Zelfhulpgroepen
         [Authorize]
-        public IActionResult Zelfhulpgroepen()
+        public async Task<IActionResult> Zelfhulpgroepen(string order, string search, int page, int amount)
         {
             // dit is al uitegevoerd niet meer uitvoeren!
-            // GroupChat groepschat = new GroupChat() {Name="test groepchat", Description = "Test description 1"};
-            // _context.Groups.Add(new Group(){Name = "Test groepnaam", GroupChat = groepschat });
-
-            // _context.Groups.RemoveRange(_context.Groups.Where(g => g.GroupChat == null));
+            // GroupChat groepschat = new GroupChat() {Name="groepchatnaam", Description = "Lorem ipsum description"};
+            // _context.Groups.Add(new Group(){Name = "Zelfhulpgroep c1000", GroupChat = groepschat });
             // _context.SaveChanges();
 
-            List<Group> grouplist = _context.Groups.Include(g => g.GroupChat).Include(g => g.Users).ThenInclude(u => u.Guides).ToList();
+            IQueryable<Group> grouplist = _context.Groups.Include(g => g.GroupChat).Include(g => g.Users).ThenInclude(u => u.Guides);
+            if (order == null) order = "AToZ";
+            ViewData["order"] = order;
+            ViewData["page"] = page;
+            ViewData["HasNext"] = (page - 1) * 10 < _context.Groups.Count();
+            ViewData["HasPrev"] = page > 0;
 
-            return View(grouplist);
+            return View(await Pagination(Order(SearchGroup(grouplist, search), order), page, 10).ToListAsync());
         }
 
        
