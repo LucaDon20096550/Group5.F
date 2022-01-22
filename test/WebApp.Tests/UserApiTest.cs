@@ -18,7 +18,7 @@ namespace WebApp.Tests
         private static MyContext _context;
         private static Mock<UserManager<ApplicationUser>> _userManagerMock;
 
-        public static Mock<UserManager<ApplicationUser>> MockUserManager(List<ApplicationUser> ls)
+        public static Mock<UserManager<ApplicationUser>> MockUserManager()
         {
             var store = new Mock<IUserStore<ApplicationUser>>();
             var mgr = new Mock<UserManager<ApplicationUser>>(store.Object, null, null, null, null, null, null, null, null);
@@ -26,8 +26,9 @@ namespace WebApp.Tests
             mgr.Object.PasswordValidators.Add(new PasswordValidator<ApplicationUser>());
 
             mgr.Setup(x => x.DeleteAsync(It.IsAny<ApplicationUser>())).ReturnsAsync(IdentityResult.Success);
-            mgr.Setup(x => x.CreateAsync(It.IsAny<ApplicationUser>(), It.IsAny<string>())).ReturnsAsync(IdentityResult.Success).Callback<ApplicationUser, string>((x, y) => ls.Add(x));
+            mgr.Setup(x => x.CreateAsync(It.IsAny<ApplicationUser>(), It.IsAny<string>())).ReturnsAsync(IdentityResult.Success).Callback<ApplicationUser, string>((x, y) => { _context.Users.Add(x); _context.SaveChanges(); });
             mgr.Setup(x => x.UpdateAsync(It.IsAny<ApplicationUser>())).ReturnsAsync(IdentityResult.Success);
+            mgr.Setup(x => x.Users).Returns(_context.Users);
 
             return mgr;
         }
@@ -35,38 +36,10 @@ namespace WebApp.Tests
         private AdminController createController() {
             database++;
             _context = new MyContext( new DbContextOptionsBuilder<MyContext>().UseInMemoryDatabase("TemporaryDatabase" + database).Options );
-            _userManagerMock = MockUserManager( new List<ApplicationUser>(){
-                                                new ApplicationUser(){Id = "1"},
-                                                new ApplicationUser(){Id = "1"},
-                                                new ApplicationUser(){Id = "1"}
-                                            });
-            _context.Groups.Add(new Group(){
-                                            Id = 1,
-                                            Name = "TestGroup1",
-                                            GroupChat = new GroupChat(){
-                                                Description = "Test Description 1."
-                                            }, Users = new List<ApplicationUser>(),
-                                            CreatedByName = "TestUser1",
-                                            CreatedOn = DateTime.Now
-                                           });
-            _context.Groups.Add(new Group(){
-                                            Id = 2,
-                                            Name = "TestGroup2",
-                                            GroupChat = new GroupChat(){
-                                                Description = "Test Description 2."
-                                            }, Users = new List<ApplicationUser>(),
-                                            CreatedByName = "TestUser2",
-                                            CreatedOn = DateTime.Now
-                                           });
-            _context.Groups.Add(new Group(){
-                                            Id = 3,
-                                            Name = "TestGroup3",
-                                            GroupChat = new GroupChat(){
-                                                Description = "Test Description 3."
-                                            }, Users = new List<ApplicationUser>(),
-                                            CreatedByName = "TestUser3",
-                                            CreatedOn = DateTime.Now
-                                           });
+            _userManagerMock = MockUserManager();
+            _userManagerMock.Object.CreateAsync(new ApplicationUser(){ Id = "1" });
+            _userManagerMock.Object.CreateAsync(new ApplicationUser(){ Id = "2" });
+            _userManagerMock.Object.CreateAsync(new ApplicationUser(){ Id = "3" });
             _context.SaveChanges();
             return new AdminController(_context, _userManagerMock.Object);
         }

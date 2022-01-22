@@ -15,10 +15,11 @@ namespace WebApp.Tests
     public class HomeControllerTest
     {
         private static int database = 0;
+        private static MyContext _context;
         private static Mock<UserManager<ApplicationUser>> _userManager;
         private static Mock<SignInManager<ApplicationUser>> _signInManager;
 
-        public static Mock<UserManager<ApplicationUser>> MockUserManager(List<ApplicationUser> ls)
+        public static Mock<UserManager<ApplicationUser>> MockUserManager()
         {
             var store = new Mock<IUserStore<ApplicationUser>>();
             var mgr = new Mock<UserManager<ApplicationUser>>(store.Object, null, null, null, null, null, null, null, null);
@@ -26,10 +27,10 @@ namespace WebApp.Tests
             mgr.Object.PasswordValidators.Add(new PasswordValidator<ApplicationUser>());
 
             mgr.Setup(x => x.DeleteAsync(It.IsAny<ApplicationUser>())).ReturnsAsync(IdentityResult.Success);
-            mgr.Setup(x => x.CreateAsync(It.IsAny<ApplicationUser>(), It.IsAny<string>())).ReturnsAsync(IdentityResult.Success).Callback<ApplicationUser, string>((x, y) => ls.Add(x));
+            mgr.Setup(x => x.CreateAsync(It.IsAny<ApplicationUser>(), It.IsAny<string>())).ReturnsAsync(IdentityResult.Success).Callback<ApplicationUser, string>((x, y) => { _context.Users.Add(x); _context.SaveChanges(); });
             mgr.Setup(x => x.UpdateAsync(It.IsAny<ApplicationUser>())).ReturnsAsync(IdentityResult.Success);
+            mgr.Setup(x => x.Users).Returns(_context.Users);
 
-            _userManager = mgr;
             return mgr;
         }
 
@@ -50,10 +51,12 @@ namespace WebApp.Tests
 
         private HomeController createController() {
             database++;
-            var userManager = MockUserManager(new List<ApplicationUser>());
+            _context = new MyContext(new DbContextOptionsBuilder<MyContext>()
+                .UseInMemoryDatabase("TemporaryDatabase" + database).Options);
+            var userManager = MockUserManager();
             var signInManager = MockSignInManager(userManager.Object);
             return new HomeController(
-                new MyContext( new DbContextOptionsBuilder<MyContext>().UseInMemoryDatabase("TemporaryDatabase" + database).Options ),
+                _context,
                 userManager.Object,
                 signInManager.Object);
         }
@@ -90,7 +93,7 @@ namespace WebApp.Tests
         public void ZelfhulpgroepenTest()
         {
             var homeController = createController();
-            var viewResult = Xunit.Assert.IsType<ViewResult>(homeController.Zelfhulpgroepen());
+            var viewResult = Xunit.Assert.IsType<ViewResult>(homeController.Zelfhulpgroepen(null, null, 0, 0));
             var viewModel = Xunit.Assert.IsType<List<Group>>(viewResult.Model);
             Xunit.Assert.Equal(0, viewModel.Count);
         }

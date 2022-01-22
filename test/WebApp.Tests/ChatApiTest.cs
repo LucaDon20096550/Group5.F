@@ -18,7 +18,7 @@ namespace WebApp.Tests
         private static MyContext _context;
         private static Mock<UserManager<ApplicationUser>> _userManagerMock;
 
-        public static Mock<UserManager<ApplicationUser>> MockUserManager(List<ApplicationUser> ls)
+        public static Mock<UserManager<ApplicationUser>> MockUserManager()
         {
             var store = new Mock<IUserStore<ApplicationUser>>();
             var mgr = new Mock<UserManager<ApplicationUser>>(store.Object, null, null, null, null, null, null, null, null);
@@ -26,8 +26,9 @@ namespace WebApp.Tests
             mgr.Object.PasswordValidators.Add(new PasswordValidator<ApplicationUser>());
 
             mgr.Setup(x => x.DeleteAsync(It.IsAny<ApplicationUser>())).ReturnsAsync(IdentityResult.Success);
-            mgr.Setup(x => x.CreateAsync(It.IsAny<ApplicationUser>(), It.IsAny<string>())).ReturnsAsync(IdentityResult.Success).Callback<ApplicationUser, string>((x, y) => ls.Add(x));
+            mgr.Setup(x => x.CreateAsync(It.IsAny<ApplicationUser>(), It.IsAny<string>())).ReturnsAsync(IdentityResult.Success).Callback<ApplicationUser, string>((x, y) => { _context.Users.Add(x); _context.SaveChanges(); });
             mgr.Setup(x => x.UpdateAsync(It.IsAny<ApplicationUser>())).ReturnsAsync(IdentityResult.Success);
+            mgr.Setup(x => x.Users).Returns(_context.Users);
 
             return mgr;
         }
@@ -35,11 +36,7 @@ namespace WebApp.Tests
         private AdminController createController() {
             database++;
             _context = new MyContext( new DbContextOptionsBuilder<MyContext>().UseInMemoryDatabase("TemporaryDatabase" + database).Options );
-            _userManagerMock = MockUserManager( new List<ApplicationUser>(){
-                                                new ApplicationUser(){Id = "1"},
-                                                new ApplicationUser(){Id = "1"},
-                                                new ApplicationUser(){Id = "1"}
-                                            });
+            _userManagerMock = MockUserManager();
             _context.Groups.Add(new Group(){
                                             Id = 1,
                                             Name = "TestGroup1",
