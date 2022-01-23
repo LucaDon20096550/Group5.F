@@ -42,13 +42,15 @@ namespace WebApp.Tests
         }
 
         [Fact]
-        public async void GetChatTest() 
+        public void GetChatTest() 
         {
             var chatapi = CreateController();
             _context.Chats.Add(new Chat(){Id = 1, Name = "chat1", Messages = new List<Message>() });
+
+            var viewResult = Xunit.Assert.IsType<ViewResult>(chatapi.GetChat(1));
+            var viewModel = Xunit.Assert.IsType<Chat>(viewResult.Model);
+            Xunit.Assert.Equal("chat1", viewModel.Name);
             
-            var result = chatapi.GetChat(1).GetType().Name;
-    
         }
 
         [Fact]
