@@ -20,8 +20,8 @@
 
         </div>
         <div class="col-6" style="text-align: right;">
-            <a asp-controller="Home" asp-action="Zelfhulpgroepen"  asp-route-order="AToZ">Sorteer: a-z</a>
-            <a asp-controller="Home" asp-action="Zelfhulpgroepen"  asp-route-order="ZToA">Sorteer: z-a</a>
+            <a asp-controller="Home" asp-action="Groups"  asp-route-order="AToZ">Sorteer: a-z</a>
+            <a asp-controller="Home" asp-action="Groups"  asp-route-order="ZToA">Sorteer: z-a</a>
         </div>
     </div>
 
@@ -47,11 +47,11 @@
         <div class="row mt-3">
             <div style="display: flex;justify-content: center;">
                 @if((bool)ViewData["HasPrev"]) {
-                    <a style="text-decoration: none;font-size: 32px!important;" asp-controller="Home" asp-action="Zelfhulpgroepen"  asp-route-page='@((int)ViewData["page"]-1)'>&#8592;</a>
+                    <a style="text-decoration: none;font-size: 32px!important;" asp-controller="Home" asp-action="Groups"  asp-route-page='@((int)ViewData["page"]-1)'>&#8592;</a>
                 }
 
                 @if((bool)ViewData["HasNext"]) { 
-                    <a style="text-decoration: none;font-size: 32px!important;" asp-controller="Home" asp-action="Zelfhulpgroepen"  asp-route-page='@((int)ViewData["page"]+1)'>&#8594;</a>
+                    <a style="text-decoration: none;font-size: 32px!important;" asp-controller="Home" asp-action="Groups"  asp-route-page='@((int)ViewData["page"]+1)'>&#8594;</a>
                 }
             </div>
         </div>

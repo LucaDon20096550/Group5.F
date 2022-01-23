@@ -80,51 +80,51 @@ namespace WebApp.Tests
         }
 
         [Fact]
-        public void OverOnsTest()
+        public void AboutUsTest()
         {
             var homeController = CreateController();
-            var viewResult = Xunit.Assert.IsType<ViewResult>(homeController.OverOns());
+            var viewResult = Xunit.Assert.IsType<ViewResult>(homeController.AboutUs());
             Xunit.Assert.Null(viewResult.Model);
         }
 
         [Fact]
-        public void ZelfhulpgroepenTest()
+        public void GroupsTest()
         {
             var homeController = CreateController();
-            var viewResult = Xunit.Assert.IsType<ViewResult>(homeController.Zelfhulpgroepen(null, null, 0, 0));
+            var viewResult = Xunit.Assert.IsType<ViewResult>(homeController.Groups(null, null, 0, 0));
             var viewModel = Xunit.Assert.IsType<List<Group>>(viewResult.Model);
             Xunit.Assert.Empty(viewModel);
         }
 
         [Fact]
-        public void KlachteninformatieTest()
+        public void ComplaintInformationTest()
         {
             var homeController = CreateController();
-            var viewResult = Xunit.Assert.IsType<ViewResult>(homeController.Klachteninformatie());
+            var viewResult = Xunit.Assert.IsType<ViewResult>(homeController.ComplaintInformation());
             Xunit.Assert.Null(viewResult.Model);
         }
 
         [Fact]
-        public void OnsTeamTest()
+        public void OurTeamTest()
         {
             var homeController = CreateController();
-            var viewResult = Xunit.Assert.IsType<ViewResult>(homeController.OnsTeam());
+            var viewResult = Xunit.Assert.IsType<ViewResult>(homeController.OurTeam());
             Xunit.Assert.Null(viewResult.Model);
         }
 
         [Fact]
-        public void AanmeldenTest()
+        public void SignUpTest()
         {
             var homeController = CreateController();
-            var viewResult = Xunit.Assert.IsType<ViewResult>(homeController.Aanmelden());
+            var viewResult = Xunit.Assert.IsType<ViewResult>(homeController.SignUp());
             Xunit.Assert.Null(viewResult.Model);
         }
 
         [Fact]
-        public void AlgemeneVoorwaardenTest()
+        public void TermsAndConditionsTest()
         {
             var homeController = CreateController();
-            var viewResult = Xunit.Assert.IsType<ViewResult>(homeController.AlgemeneVoorwaarden());
+            var viewResult = Xunit.Assert.IsType<ViewResult>(homeController.TermsAndConditions());
             Xunit.Assert.Null(viewResult.Model);
         }
 
@@ -137,18 +137,18 @@ namespace WebApp.Tests
         }
 
         [Fact]
-        public void OrthopedagoogProfielTest()
+        public void EmployeeProfileTest()
         {
             var homeController = CreateController();
-            var viewResult = Xunit.Assert.IsType<ViewResult>(homeController.OrthopedagoogProfiel());
+            var viewResult = Xunit.Assert.IsType<ViewResult>(homeController.EmployeeProfile());
             Xunit.Assert.Null(viewResult.Model);
         }
 
         [Fact]
-        public void ExtraInformatieTest()
+        public void ExtraInformationTest()
         {
             var homeController = CreateController();
-            var viewResult = Xunit.Assert.IsType<ViewResult>(homeController.ExtraInformatie());
+            var viewResult = Xunit.Assert.IsType<ViewResult>(homeController.ExtraInformation());
             Xunit.Assert.Null(viewResult.Model);
         }
 

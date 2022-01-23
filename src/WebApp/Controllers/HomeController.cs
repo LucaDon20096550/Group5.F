@@ -53,7 +53,7 @@ namespace WebApp.Controllers
         }
 
         // GET: Home/OverOns
-        public IActionResult OverOns()
+        public IActionResult AboutUs()
         {
             return View();
         }
@@ -85,7 +85,7 @@ namespace WebApp.Controllers
         
         // GET: Home/Zelfhulpgroepen
         [Authorize]
-        public async Task<IActionResult> Zelfhulpgroepen(string order, string search, int page, int amount)
+        public async Task<IActionResult> Groups(string order, string search, int page, int amount)
         {
             // dit is al uitegevoerd niet meer uitvoeren!
             // GroupChat groepschat = new GroupChat() {Name="groepchatnaam", Description = "Lorem ipsum description"};
@@ -104,25 +104,25 @@ namespace WebApp.Controllers
 
        
         // GET: Home/Klachteninformatie
-        public IActionResult Klachteninformatie()
+        public IActionResult ComplaintInformation()
         {
             return View();
         }
         
         // GET: Home/OnsTeam
-        public IActionResult OnsTeam()
+        public IActionResult OurTeam()
         {
             return View();
         }
 
         // GET: Home/Aanmelden
-        public IActionResult Aanmelden()
+        public IActionResult SignUp()
         {
             return View();
         }
 
         // GET: Home/AlgemeneVoorwaarden
-        public IActionResult AlgemeneVoorwaarden()
+        public IActionResult TermsAndConditions()
         {
             return View();
         }
@@ -134,13 +134,13 @@ namespace WebApp.Controllers
         }
 
         // GET: Home/OrthopedagoogProfiel
-        public IActionResult OrthopedagoogProfiel()
+        public IActionResult EmployeeProfile()
         {
             return View();
         }
         
         // GET: Home/ExtraInformatie
-        public IActionResult ExtraInformatie()
+        public IActionResult ExtraInformation()
         {
             return View();
         }
