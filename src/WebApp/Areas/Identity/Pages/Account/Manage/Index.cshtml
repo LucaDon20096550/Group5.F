@@ -28,8 +28,10 @@
                     <p class="rolp">Je bent een: hulpverlener</p>
                 } else if (User.IsInRole("Caregiver")) {
                     <p class="rolp">Je bent een: verzorger</p>
-                } else {
+                } else if (User.IsInRole("Client")) {
                     <p class="rolp">Je bent een: client</p>
+                } else {
+                    <p class="rolp">Je hebt geen rol, meld het bij een moderator of orthopedagoog.</p>
                 }
             }
         </div>      
