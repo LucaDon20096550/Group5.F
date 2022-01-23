@@ -23,18 +23,11 @@ namespace WebApp.Controllers
 
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public HomeController(MyContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
+        public HomeController(MyContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
-
-            if (!_context.Roles.Any())
-            {
-                roleManager.CreateAsync(new IdentityRole("Client"));
-                roleManager.CreateAsync(new IdentityRole("Employee"));
-                roleManager.CreateAsync(new IdentityRole("Administrator"));
-            }
         }
 
         // GET: Home
