@@ -31,7 +31,7 @@ namespace WebApp.Tests
             mgr.Setup(x => x.CreateAsync(It.IsAny<ApplicationUser>(), It.IsAny<string>())).ReturnsAsync(IdentityResult.Success).Callback<ApplicationUser, string>((x, y) => { _context.Users.Add(x); _context.SaveChanges(); });
             mgr.Setup(x => x.UpdateAsync(It.IsAny<ApplicationUser>())).ReturnsAsync(IdentityResult.Success);
             mgr.Setup(x => x.Users).Returns(_context.Users);
-            mgr.Setup(x => x.GetUserAsync(It.IsAny<ClaimsPrincipal>())).ReturnsAsync(_context.Users.Find("1"));
+            mgr.Setup(x => x.GetUserAsync(It.IsAny<ClaimsPrincipal>())).ReturnsAsync(_context.Users.Single(u => u.Id == "1"));
 
             return mgr;
         }
@@ -75,24 +75,28 @@ namespace WebApp.Tests
         public void GetMessagesTest()
         {
             var controller = CreateController();
+            var list = Xunit.Assert.IsType<List<Message>>(controller.GetMessages(1));
+            Xunit.Assert.Equal(2, list.Count);
         }
         
         [Fact]
         public void PostMessageTest()
         {
             var controller = CreateController();
-        }
-        
-        [Fact]
-        public void PutMessageTest()
-        {
-            var controller = CreateController();
-        }
-        
-        [Fact]
-        public void DeleteMessageTest()
-        {
-            var controller = CreateController();
+            var message3 = Xunit.Assert.IsType<Message>(controller.PostMessage(1, "Test3"));
+            Xunit.Assert.Equal(1, message3.Chat.Id);
+            Xunit.Assert.Equal("Test3", message3.Text);
+            Xunit.Assert.Equal(3, _context.Users.Single(u => u.Id == "1").PrivateChats.Single(c => c.Id == 1).Messages.Count);
+            
+            var message4 = Xunit.Assert.IsType<Message>(controller.PostMessage(1, "Test4"));
+            Xunit.Assert.Equal(1, message4.Chat.Id);
+            Xunit.Assert.Equal("Test4", message4.Text);
+            Xunit.Assert.Equal(4, _context.Users.Single(u => u.Id == "1").PrivateChats.Single(c => c.Id == 1).Messages.Count);
+            
+            var message5 = Xunit.Assert.IsType<Message>(controller.PostMessage(1, "Test5"));
+            Xunit.Assert.Equal(1, message5.Chat.Id);
+            Xunit.Assert.Equal("Test5", message5.Text);
+            Xunit.Assert.Equal(5, _context.Users.Single(u => u.Id == "1").PrivateChats.Single(c => c.Id == 1).Messages.Count);
         }
     }
 }
