@@ -23,6 +23,7 @@ namespace WebApp.Models
 
                 context.Roles.AddRange(
                     new IdentityRole("Client"),
+                    new IdentityRole("Caretaker"),
                     new IdentityRole("Employee"),
                     new IdentityRole("Administrator")
                 );
