@@ -37,14 +37,14 @@
                     <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="OverOns">Over ons</a>
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="AboutUs">Over ons</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="OnsTeam">Het team</a>
+                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="OurTeam">Het team</a>
                   </li>
                   @if(User.Identity.IsAuthenticated) {
                       <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Zelfhulpgroepen">Zelfhulpgroepen</a>
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Groups">Zelfhulpgroepen</a>
                       </li>
                   }
                   <li>
@@ -53,9 +53,9 @@
                         Meer
                       </button>
                       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="ExtraInformatie">Extra infromatie</a>
-                        <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Klachteninformatie">Klachten informatie</a>
-                        <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="AlgemeneVoorwaarden">Algemene voorwaarden</a>
+                        <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="ExtraInformation">Extra infromatie</a>
+                        <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="ComplaintInformation">Klachten informatie</a>
+                        <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="TermsAndConditions">Algemene voorwaarden</a>
                         <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="PrivacyPolicy">Privacy policy</a>
                       </div>
                     </div>
@@ -111,7 +111,7 @@
               </div>
 
               <ul class="nav col-md-4 d-flex justify-content-end">
-                <li><a  asp-controller="Home" asp-action="AlgemeneVoorwaarden" id="footer-link" class="nav-link">Algemene voorwaarden</a></li>
+                <li><a  asp-controller="Home" asp-action="TermsAndConditions" id="footer-link" class="nav-link">Algemene voorwaarden</a></li>
                 <li><a asp-controller="home" asp-action="PrivacyPolicy" id="footer-link" class="nav-link">Privacy verklaring</a></li>
               </ul>
           
