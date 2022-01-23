@@ -33,44 +33,84 @@ namespace WebApp.Tests
             return mgr;
         }
 
-        private static AdminController CreateController() {
+        private static ChatApi CreateController() {
             database++;
             _context = new MyContext( new DbContextOptionsBuilder<MyContext>().UseInMemoryDatabase("TemporaryDatabase" + database).Options );
             _userManagerMock = MockUserManager();
-            _context.Groups.Add(new Group(){
-                                            Id = 1,
-                                            Name = "TestGroup1",
-                                            GroupChat = new GroupChat(){
-                                                Description = "Test Description 1."
-                                            }, Users = new List<ApplicationUser>(),
-                                            CreatedByName = "TestUser1",
-                                            CreatedOn = DateTime.Now
-                                           });
-            _context.Groups.Add(new Group(){
-                                            Id = 2,
-                                            Name = "TestGroup2",
-                                            GroupChat = new GroupChat(){
-                                                Description = "Test Description 2."
-                                            }, Users = new List<ApplicationUser>(),
-                                            CreatedByName = "TestUser2",
-                                            CreatedOn = DateTime.Now
-                                           });
-            _context.Groups.Add(new Group(){
-                                            Id = 3,
-                                            Name = "TestGroup3",
-                                            GroupChat = new GroupChat(){
-                                                Description = "Test Description 3."
-                                            }, Users = new List<ApplicationUser>(),
-                                            CreatedByName = "TestUser3",
-                                            CreatedOn = DateTime.Now
-                                           });
+            _userManagerMock.Object.CreateAsync(new ApplicationUser(){ Id = "1" });
+            _userManagerMock.Object.CreateAsync(new ApplicationUser(){ Id = "2" });
+            _context.Users.Single(u => u.Id == "1")
+                .PrivateChats
+                .Add(new PrivateChat()
+                {
+                    Id = 1,
+                    Name = "TestChat",
+                    Users = _context.Users.ToList(),
+                    Messages = new List<Message>()
+                    {
+                        new Message()
+                        {
+                            DateTimeSent = DateTime.Now,
+                            Sender = _context.Users.Single(u => u.Id == "1"),
+                            Text = "Test1"
+                        },
+                        new Message()
+                        {
+                            DateTimeSent = DateTime.Now,
+                            Sender = _context.Users.Single(u => u.Id == "2"),
+                            Text = "Test2"
+                        }
+                    }
+                });
             _context.SaveChanges();
-            return new AdminController(_context, _userManagerMock.Object);
+            return new ChatApi(_context, _userManagerMock.Object);
         }
 
         [Fact]
-        public void Test1()
+        public void GetChatTest() 
         {
+            var chatapi = CreateController();
+
+            var viewResult = Xunit.Assert.IsType<ViewResult>(chatapi.GetChat(1));
+            var viewModel = Xunit.Assert.IsType<Chat>(viewResult.Model);
+            Xunit.Assert.Equal("TestChat", viewModel.Name);
         }
+
+        [Fact]
+        public void PutChatTest() 
+        {
+            
+        }
+
+        [Fact]
+        public void PostChatTest() 
+        {
+
+        }
+
+        [Fact]
+        public void PostMessageTest() 
+        {
+
+        }
+
+        [Fact]
+        public void DeleteChatTest() 
+        {
+
+        }
+
+        [Fact]
+        public void ChatExists()
+        {
+            
+        }
+
+        [Fact]
+        public void GetChatsTest()
+        {
+
+        }
+
     }
 }
