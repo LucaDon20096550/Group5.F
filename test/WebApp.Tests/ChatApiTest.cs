@@ -37,6 +37,31 @@ namespace WebApp.Tests
             database++;
             _context = new MyContext( new DbContextOptionsBuilder<MyContext>().UseInMemoryDatabase("TemporaryDatabase" + database).Options );
             _userManagerMock = MockUserManager();
+            _userManagerMock.Object.CreateAsync(new ApplicationUser(){ Id = "1" });
+            _userManagerMock.Object.CreateAsync(new ApplicationUser(){ Id = "2" });
+            _context.Users.Single(u => u.Id == "1")
+                .PrivateChats
+                .Add(new PrivateChat()
+                {
+                    Id = 1,
+                    Name = "TestChat",
+                    Users = _context.Users.ToList(),
+                    Messages = new List<Message>()
+                    {
+                        new Message()
+                        {
+                            DateTimeSent = DateTime.Now,
+                            Sender = _context.Users.Single(u => u.Id == "1"),
+                            Text = "Test1"
+                        },
+                        new Message()
+                        {
+                            DateTimeSent = DateTime.Now,
+                            Sender = _context.Users.Single(u => u.Id == "2"),
+                            Text = "Test2"
+                        }
+                    }
+                });
             _context.SaveChanges();
             return new ChatApi(_context, _userManagerMock.Object);
         }
@@ -45,12 +70,10 @@ namespace WebApp.Tests
         public void GetChatTest() 
         {
             var chatapi = CreateController();
-            _context.Chats.Add(new Chat(){Id = 1, Name = "chat1", Messages = new List<Message>() });
 
             var viewResult = Xunit.Assert.IsType<ViewResult>(chatapi.GetChat(1));
             var viewModel = Xunit.Assert.IsType<Chat>(viewResult.Model);
-            Xunit.Assert.Equal("chat1", viewModel.Name);
-            
+            Xunit.Assert.Equal("TestChat", viewModel.Name);
         }
 
         [Fact]
