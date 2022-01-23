@@ -9,6 +9,7 @@ using Moq;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using System.Linq;
+using System.IO;
 
 namespace WebApp.Tests
 {
@@ -33,21 +34,40 @@ namespace WebApp.Tests
             return mgr;
         }
 
-        private static AdminController CreateController() {
+        private static UserApi CreateController() {
             database++;
             _context = new MyContext( new DbContextOptionsBuilder<MyContext>().UseInMemoryDatabase("TemporaryDatabase" + database).Options );
             _userManagerMock = MockUserManager();
             _userManagerMock.Object.CreateAsync(new ApplicationUser(){ Id = "1" });
             _userManagerMock.Object.CreateAsync(new ApplicationUser(){ Id = "2" });
             _userManagerMock.Object.CreateAsync(new ApplicationUser(){ Id = "3" });
+
             _context.SaveChanges();
-            return new AdminController(_context, _userManagerMock.Object);
+            return new UserApi(_context, _userManagerMock.Object);
         }
 
         [Fact]
-        public void GetUserNameTest()
+        public async void GetUserNameTest()
         {
-            
+            var userApi = CreateController();
+            _context.Users.Add(new ApplicationUser(){Id = "4"});
+            // ApplicationUser user = _context.Users.Single(u => u.Id == "4");
+
+            // Console.Write(user + "USERRRRRRRRRRRRR");
+            // Console.Write(user.ToString());
+
+            _context.Chats.Add(new PrivateChat() {Id = 1, Name = "chat1"});
+            PrivateChat privateChat = (PrivateChat) await _context.Chats.Where(c => c.Id == 1).SingleOrDefaultAsync();
+
+            // privateChat.Users.Add(user);
+
+            // privateChat.Messages.Add(new Message(){
+            //     Id = 1, Text = "test text", DateTimeSent = new DateTime(2022, 1, 23), Sender = user, Chat = privateChat });
+
+            // Console.Write( await userApi.GetUserName(user.Id, privateChat.Id) + "---------------------------------");
+
+            // Assert.Equals("");
+
         }
     }
 }

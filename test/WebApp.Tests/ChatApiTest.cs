@@ -33,44 +33,59 @@ namespace WebApp.Tests
             return mgr;
         }
 
-        private static AdminController CreateController() {
+        private static ChatApi CreateController() {
             database++;
             _context = new MyContext( new DbContextOptionsBuilder<MyContext>().UseInMemoryDatabase("TemporaryDatabase" + database).Options );
             _userManagerMock = MockUserManager();
-            _context.Groups.Add(new Group(){
-                                            Id = 1,
-                                            Name = "TestGroup1",
-                                            GroupChat = new GroupChat(){
-                                                Description = "Test Description 1."
-                                            }, Users = new List<ApplicationUser>(),
-                                            CreatedByName = "TestUser1",
-                                            CreatedOn = DateTime.Now
-                                           });
-            _context.Groups.Add(new Group(){
-                                            Id = 2,
-                                            Name = "TestGroup2",
-                                            GroupChat = new GroupChat(){
-                                                Description = "Test Description 2."
-                                            }, Users = new List<ApplicationUser>(),
-                                            CreatedByName = "TestUser2",
-                                            CreatedOn = DateTime.Now
-                                           });
-            _context.Groups.Add(new Group(){
-                                            Id = 3,
-                                            Name = "TestGroup3",
-                                            GroupChat = new GroupChat(){
-                                                Description = "Test Description 3."
-                                            }, Users = new List<ApplicationUser>(),
-                                            CreatedByName = "TestUser3",
-                                            CreatedOn = DateTime.Now
-                                           });
             _context.SaveChanges();
-            return new AdminController(_context, _userManagerMock.Object);
+            return new ChatApi(_context, _userManagerMock.Object);
         }
 
         [Fact]
-        public void Test1()
+        public async void GetChatTest() 
         {
+            var chatapi = CreateController();
+            _context.Chats.Add(new Chat(){Id = 1, Name = "chat1", Messages = new List<Message>() });
+            
+            var result = chatapi.GetChat(1).GetType().Name;
+    
         }
+
+        [Fact]
+        public void PutChatTest() 
+        {
+            
+        }
+
+        [Fact]
+        public void PostChatTest() 
+        {
+
+        }
+
+        [Fact]
+        public void PostMessageTest() 
+        {
+
+        }
+
+        [Fact]
+        public void DeleteChatTest() 
+        {
+
+        }
+
+        [Fact]
+        public void ChatExists()
+        {
+            
+        }
+
+        [Fact]
+        public void GetChatsTest()
+        {
+
+        }
+
     }
 }
