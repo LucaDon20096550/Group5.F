@@ -29,8 +29,8 @@ namespace WebApp.Controllers
         public async Task<ActionResult<IEnumerable<Chat>>> GetChats()
         {
             var user = await _userManager.GetUserAsync(User);
-            var PrivateChats = ( user).PrivateChats;
-            var Groups = ( user).Groups;
+            var PrivateChats = (user).PrivateChats;
+            var Groups = (user).Groups;
             var chats = new List<Chat>();
             if (!((PrivateChats != null && PrivateChats.Count() == 0 && Groups != null && Groups.Count() == 0) ||
                 (PrivateChats != null && PrivateChats.Count() == 0 && Groups == null) ||
@@ -114,7 +114,7 @@ namespace WebApp.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteChat(int id)
         {
-            var chat = await _context.Chats.FindAsync(id);
+            var chat = _context.Chats.Single(c => c.Id == id);
             if (chat == null)
             {
                 return NotFound();

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -16,55 +16,136 @@ using System.Text;
 
 namespace WebApp.Controllers
 {
-    
     public class HomeController : Controller
     {
         private readonly MyContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public HomeController(MyContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
+        private readonly SignInManager<ApplicationUser> _signInManager;
+
+        public HomeController(MyContext context, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
-            _roleManager = roleManager;
         }
 
         // GET: Home
-        public IActionResult Index()
-        {
+        public IActionResult Index() {
             return View();
         }
-
         // GET: Home/Chat
+        [Authorize]
         public async Task<IActionResult> Chat()
         {
             var user = _userManager.GetUserAsync(User);
+            /*var userNameList = new List<string>();
+            var userApi = new UserApi(_context, _userManager);
+            foreach (var userInList in _context.Users)
+            {
+                var name = await userApi.GetUserName((await user).Id, 0);
+                if (name != null) {
+                    userNameList.Add(name);
+                }
+            }
+            ViewData["userNameList"] = userNameList;*/
             return View(await user);
         }
 
-        // GET: Home/AboutUs
-        public IActionResult AboutUs()
+        // GET: Home/OverOns
+        public IActionResult OverOns()
+        {
+            return View();
+        }
+
+        public IQueryable<Group> SearchGroup(IQueryable<Group> list, string search) {
+            if (search == null) {
+                return list;
+            } else {
+                return list.Where(g => g.Name.Contains(search));
+            }
+        }
+
+            public IQueryable<Group> Order(IQueryable<Group> list, string order) {
+            switch(order) {
+                case "AToZ":
+                    return list.OrderBy(g => g.Name.ToLower());
+                case "ZToA":
+                    return list.OrderByDescending(g => g.Name.ToLower());
+                default:
+                    return list.OrderBy(g => g.Name.ToLower());
+            }
+        }
+
+        public IQueryable<Group> Pagination(IQueryable<Group> list, int page, int amount) {
+            if (page < 0)
+                page = 0;
+            return list.Skip(page * amount ).Take(amount);
+        }   
+        
+        // GET: Home/Zelfhulpgroepen
+        [Authorize]
+        public async Task<IActionResult> Zelfhulpgroepen(string order, string search, int page, int amount)
+        {
+            // dit is al uitegevoerd niet meer uitvoeren!
+            // GroupChat groepschat = new GroupChat() {Name="groepchatnaam", Description = "Lorem ipsum description"};
+            // _context.Groups.Add(new Group(){Name = "Zelfhulpgroep c1000", GroupChat = groepschat });
+            // _context.SaveChanges();
+
+            IQueryable<Group> grouplist = _context.Groups.Include(g => g.GroupChat).Include(g => g.Users).ThenInclude(u => u.Guides);
+            if (order == null) order = "AToZ";
+            ViewData["order"] = order;
+            ViewData["page"] = page;
+            ViewData["HasNext"] = (page - 1) * 10 < _context.Groups.Count();
+            ViewData["HasPrev"] = page > 0;
+
+            return View(await Pagination(Order(SearchGroup(grouplist, search), order), page, 10).ToListAsync());
+        }
+
+       
+        // GET: Home/Klachteninformatie
+        public IActionResult Klachteninformatie()
         {
             return View();
         }
         
-        // GET: Home/Doctors
-        public IActionResult Doctors()
+        // GET: Home/OnsTeam
+        public IActionResult OnsTeam()
+        {
+            return View();
+        }
+
+        // GET: Home/Aanmelden
+        public IActionResult Aanmelden()
+        {
+            return View();
+        }
+
+        // GET: Home/AlgemeneVoorwaarden
+        public IActionResult AlgemeneVoorwaarden()
+        {
+            return View();
+        }
+
+        // GET: Home/PrivacyPolicy
+        public IActionResult PrivacyPolicy()
+        {
+            return View();
+        }
+
+        // GET: Home/OrthopedagoogProfiel
+        public IActionResult OrthopedagoogProfiel()
         {
             return View();
         }
         
-        // GET: Home/Contact
-        public IActionResult Contact()
+        // GET: Home/ExtraInformatie
+        public IActionResult ExtraInformatie()
         {
             return View();
         }
 
         // POST: Home/RegisterProfile
-        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> RegisterProfile(long ClientId, string FullName, string iban, long bsn, DateTime DateOfBirth)
         {
@@ -104,6 +185,13 @@ namespace WebApp.Controllers
 
             return View(response.IsSuccessStatusCode);
         }
+        
+        // // GET: Home/StartChatWithUser
+        // public IActionResult StartChatWithUser()
+        // {
+        //     var user = _userManager.GetUserAsync(User);
+        //     return View();
+        // }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

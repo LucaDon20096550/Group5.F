@@ -34,10 +34,10 @@ namespace WebApp
         {
             services.AddControllersWithViews()
                     .AddNewtonsoftJson();
-            
+
             services.AddRazorPages().AddRazorRuntimeCompilation();
 
-            services.AddDbContext<MyContext>(builder => builder.UseSqlite("Data Source=database.db"));
+            services.AddDbContext<MyContext>(builder => builder.UseSqlServer("Data Source=SQL5109.site4now.net;Initial Catalog=db_a7f1a7_zmdh;User Id=db_a7f1a7_zmdh_admin;Password=Zmdh!123;MultipleActiveResultSets=true"));
             services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
                     .AddDefaultUI()
                     .AddEntityFrameworkStores<MyContext>()

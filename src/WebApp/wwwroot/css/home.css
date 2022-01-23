@@ -1,4 +1,5 @@
 
+/* css voor homepage */ 
 
 .title-left {
     border-left: 7px solid rgb(164, 223, 170);
@@ -9,6 +10,10 @@
     border-right: 7px solid rgb(164, 223, 170);
     padding-right: 15px;
     text-align: end;
+}
+
+a {
+    color: rgb(164,223,170);
 }
 
 .text-two {
@@ -25,9 +30,10 @@
 
 #firstimg {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
+    margin-left: auto; 
+    margin-right: auto; 
+    width: 30%;
+    padding: 2em;
 }
 
 #secondimg {
@@ -57,7 +63,6 @@
     margin-left: 3em;
 }
 
-
 #inschrijven {
     text-align: justify;
     max-width: 600px;
@@ -68,11 +73,11 @@
 #bezoeken {
     margin-left: auto;
     margin-right: auto;
+    transform: translateY(20%);
 }
 
 #tijden {
     margin-right: auto;
 }
-
 
 

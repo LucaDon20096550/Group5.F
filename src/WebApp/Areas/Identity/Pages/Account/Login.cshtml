@@ -2,71 +2,59 @@
 @model LoginModel
 
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = "Login";
 }
 
 <link rel="stylesheet" href="~/css/login.css">
 
 <div class="container">
-    <div class="row row-card px-3">
-        <div class="col-lg-10 col-xl-9 card flex-row mx-auto px-0">
-            <div class="img-left d-none d-md-flex">
-                <img src="~/PNG/mobiele-login-concept-illustratie_114360-135.jpg.webp" alt="">
-            </div>
-
-            <div class="card-body">
-                <h4 class="title text-center mt-4">
-                    Login bij uw account
-                </h4>
-
-                <hr/>
-                <div asp-validation-summary="All" class="text-danger"></div>
-
-
-                <form id="account" class="form-box px-3" method="post">
-
-                    <div class="form-group">
-                        <span><i class="fa fa-envelope-o"></i></span>
-                        <input type="email" name="" placeholder="Email Address" tabindex="10" required>
-                    </div>
-                    <div class="form-group">
-                        <span><i class="fa fa-key"></i></span>
-                        <input type="password" name="" placeholder="Password" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="cb1" name="">
-                            <label class="custom-control-label" for="cb1">Onthoud mij</label>
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <button type="submit" class="btn btn-block text-uppercase">
-                            Login
-                        </button>
-                    </div>
-
-                    <div class="text-right">
-                        <a id="forgot-password" class="forget-link" asp-page="./ForgotPassword">Wachtwoord vergeten?</a>
-                    </div>
-
-
-
-                    <hr class="my-4">
-
-                    <div class="text-center mb-2">
-                        Don't have an account?
-                        <a class="forget-link" asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-                    </div>
-                </form>
-            </div>
+    <div class="row px-3">
+      <div class="col-lg-10 col-xl-9 card flex-row mx-auto px-0">
+        <div class="img-left d-none  d-md-flex">
+            <img src="~/PNG/mobiele-login-concept-illustratie_114360-135.jpg.webp" alt="">
         </div>
+
+        <div class="card-body">
+          <section>
+            <form id="account" method="post">
+                <h4>Login bij je account.</h4>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Input.Email">Email</label>
+                    <input asp-for="Input.Email" class="form-control" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Password">Wachtwoord</label>
+                    <input asp-for="Input.Password" class="form-control" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-group-check">
+                    <div class="checkbox">
+                        <label asp-for="Input.RememberMe"> 
+                            <input asp-for="Input.RememberMe" />
+                            Ingelogd blijven.
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn my-2 px-5">Login</button>
+                </div>
+                <div class="form-group">
+                    <p>
+                        <a id="forgot-password" asp-page="./ForgotPassword">Wachtwoord vergeten?</a>
+                    </p>
+                    <p>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Registreer je als een nieuwe gebruiker.</a>
+                    </p>
+                </div>
+            </form>
+        </section>
+        </div>
+      </div>
     </div>
-</div>
-
-
-
+  </div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

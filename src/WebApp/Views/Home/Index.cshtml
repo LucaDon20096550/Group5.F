@@ -1,27 +1,27 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
-
+﻿
 <link rel="stylesheet" href="~/css/home.css">
 
 <!-- head info -->
        <section class="p-5 pt-0 text-center text-sm-start info">
          <div class="container container-one">
-             <div class="d-sm-flex align-items-center justify-content-between">
+             <div class="d-sm-flex align-items-center justify-content-between " >
                  <div class="text-one m-5">
                      <div class="d-flex flex-row titles">
                          <h2 class="logo">ZMDH</h2>
                          <h2 class="green-border mx-3 title-left">Wie zijn wij?</h2>
                      </div>
-                     <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. <br>
-                         Nostrum incidunt laborum hic perferendis iusto, 
-                         illum repellat <br> sequi excepturi impedit! Minima at iure totam sit voluptates <br> nemo dolores illum cum consequuntur quo beatae adipisci enim <br> quis facere, 
-                         veritatis reprehenderit nulla sapiente dicta aliquam voluptatibus earum! Laboriosam aut dolores expedita porro consequatur.</p>
+                     <p class="w-75">Wij zijn een praktijk bestaande uit gemotiveerde en enthousiaste orhtopedagogen. ZMDH biedt hulp gericht op de ontwikkeling van kinderen en jongeren.
+                         Het aanbod bestaat uit verschillende behandelingen voor bijvoorbeeld ADD, ADHD en verschillende stoornissen. Wij verzorgen hulp voor zowel ouders en kind op onze
+                         praktijk in Den Haag. Tenslotte zijn in onze praktijk verschillende aanpassingen gedaan om alles binnen de huidemaatregelen omtrent corona op een verantwoorde manier door te kunnen zetten.
+                     </p>
+                     <a href="/Identity/Account/Register" >
                          <button class="btn btn-light btn-lg">Inschrijven</button>
+                     </a>
+                    
                  </div>
-                 <div class="img d-flex">
-                     <img id="firstimg" class="img-fluid d-none d-md-block" src="~/PNG/medical-g44a3384bc_1280.png" alt="logo">
-                 </div>
+                 
+                     <img id="firstimg" class="img-fluid" src="~/PNG/medical-g44a3384bc_1280.png" alt="">
+                 
              </div>
          </div>
      </section>
@@ -35,12 +35,12 @@
                  <div class="col-md-6">
                       <div class="text-two">
                           <h2 class="title-left">Training & Activiteiten</h2>
-                          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. <br>
-                              Fuga tenetur pariatur repellendus ratione recusandae libero <br> cumque iure suscipit quam cum reprehenderit omnis, 
-                              molestias dolor at consequuntur? <br> Nisi libero cum alias officiis perspiciatis delectus et commodi, <br>
-                              unde quas distinctio inventore quam voluptate minima corrupti odio molestiae <br> est totam consequatur ipsum magni molestias nulla illo? 
-                              </p>
-                              <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. <br> Dolore quod perferendis aliquid exercitationem, consequuntur ea?</p>
+                          <p>
+                              De jarenlange ervaring van onze medewerkers en oprichters heeft ervoor gezorgd dat wij een unieke kans hebben om een eigen methodiek te ontwikkelen 
+                              die wij in onze praktijk kunnen toepassen. Wij denken vanuit de krachten van het kind in plaats van de klachten. 
+                              Doormiddel van trainingen en activiteiten helpen wij kinderen en ook de ouders met het vinden van hun eigen kracht. Uiteindelijk heeft het kind zelf de oplossing 
+                              al in handen alleen geven wij het extra steuntje in de rug. Zo kan het kind al tijdens het traject beginnen met zijn of haar ontwikkeling. 
+                          </p>
                       </div>
                  </div>
                  <div class="col-md-6">
@@ -52,30 +52,30 @@
  
      <!--Specialisten-->
  
-     <section class="p-5 pt-0 text-center">
+     <section class="px-5 text-center">
          <div class="container container-three timeline">
              <div id="spec-title" class="d-md-flex pt-5">
                  <h2 class="title-left">Specialisten</h2>
              </div>
              <div class="d-md-flex flex-row justify-content-between spec m-5  pb-5">
                  <div>
-                     <img id="spec" src="~/PNG/11.jpg" alt="afbeelding orthopedagoog S.Ipsum">
-                     <h5>S. Ipsum</h5>
+                     <a asp-controller="Home" asp-action="OnsTeam" ><img id="spec" src="~/PNG/11.jpg" alt="afbeelding orthopedagoog John van der Heuvel"></a>
+                     <h5>J. van der Heuvel</h5>
                      <p>15 jaar ervaring als specialist <br> orthopedagoog ontwikkelaar</p>
                  </div>
                  <div>
-                     <img id="spec" src="~/PNG/52.jpg" alt="afbeelding orthopedagoog A. Leerry">
-                     <h5>A. Leerry</h5>
+                     <a asp-controller="Home" asp-action="OnsTeam" ><img id="spec" src="~/PNG/52.jpg" alt="afbeelding orthopedagoog Miranda van Dijk"></a>
+                     <h5>M. van Dijk</h5>
                      <p>Ontwikkelings specialist</p>
                  </div>
                  <div>
-                     <img id="spec" src="~/PNG/65.jpg" alt="afbeelding orthopedagoog M. Jong">
-                     <h5>M. Jong</h5>
+                     <a asp-controller="Home" asp-action="OnsTeam" ><img id="spec" src="~/PNG/65.jpg" alt="afbeelding orthopedagoog Herma de Jong"></a>
+                     <h5>H. de Jong</h5>
                      <p>Medische hulpverlener <br> -- EHBO Specialist</p>
                  </div>
                  <div>
-                     <img id="spec" src="~/PNG/83.jpg" alt="afbeelding orthopedagoog S.V. Adelaar">
-                     <h5>S.V. Adelaar</h5>
+                     <a asp-controller="Home" asp-action="OnsTeam"><img id="spec" src="~/PNG/83.jpg" alt="afbeelding orthopedagoog Jan de Groot"></a>
+                     <h5>Jan de Groot</h5>
                      <p>5 jaar ervaging <br> als specialist orthopedagoog trainer</p>
                  </div>
              </div>
@@ -90,14 +90,22 @@
              <div class="d-md-flex flex-row justify-content-between">
                  <div id="inschrijven" class="col-md-6 d-flex flex-column">
                       <div>
-                          <h2 class="title-left">Je kind inschrijven</h2>
-                          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis, cumque hic modi voluptas facere in nostrum. Saepe, eos ratione error deserunt maxime enim provident illo? Magni officiis, maxime ducimus, quos dolor sed dolore atque quis inventore voluptatum placeat mollitia, consectetur delectus. Dicta distinctio enim ratione iusto perspiciatis? Est, quae dignissimos!</p>
+                          <h2 class="title-left">Hoe meld ik mij aan?</h2>
+                          <p>
+                              Als u geïnteresseerd bent om uw kind bij ons aan te melden dan kunt u eerst langskomen voor een intakegesprek. Tijdens dat gesprek bespreken we alle mogelijkheden binnen ZMDH en kunnen wij een goed beeld krijgen van uw problematiek. <br>
+                              
+                             <br> Indien u tevreden bent over ons tijdens het intakegesprek kunt u uw kind bij ons <a href="/Identity/Account/Register">aanmelden</a> of uw kind kan zichzelf aanmelden als het kind ouder is dan 16 jaar. Vervolgens wordt er een Orthopedagoog toegewezen en die zal het gehele traject met u en uw kind doorlopen. Uiteraard is het mogelijk om uw voorkeur aan te geven voor een Orthopedagoog. Alle behandelingen vinden plaats in de praktijk. <br>
+                              
+                             <br> ZMDH hecht veel waarde aan de privacy van al onze cliënten en geeft daarom ook een hoge prioriteit aan als het gaat om vertrouwelijk omgaan met gegevens. Wij verzoeken u dan ook om van tevoren de privacyrichtlijnen op onze website door te nemen, zodat ook u op de hoogte bent van alle voorschriften. 
+
+                              
+                          </p>
                       </div>
                  </div>
                  <div id="bezoeken" class="col-md-6 ">
                      <h2 class="title-right">De praktijk bezoeken</h2>
-                     <div class="d-md-flex flex-row justify-content-between">
-                         <img src="~/PNG/female-client-visitor-talking-with-receptionist-desk-speech-bubble-laptop-flat-vector-illustration-service-communication_74855-13068.webp" class="img-fluid w-50 fear" alt="persoon met angst">
+                     <div class="d-md-flex flex-row align-items-center justify-content-center">
+                         <img src="~/PNG/female-recep.jpg" class="img-fluid w-50 fear" alt="persoon met angst">
  
                          <div id="tijden" class="text-center">
                              <p class="mb-1">Tijden voor een bezoek </p>

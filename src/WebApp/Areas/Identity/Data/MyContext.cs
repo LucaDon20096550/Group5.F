@@ -14,8 +14,7 @@ namespace WebApp.Areas.Identity.Data
             : base(options)
         {
         }
-
-        public DbSet<ApplicationUser> Users { get; set; }
+        
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<OverviewFile> OverviewFiles { get; set; }
         public DbSet<File> Files { get; set; }
@@ -26,7 +25,7 @@ namespace WebApp.Areas.Identity.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
+            
             // Setting up keys
             builder.Entity<Appointment>()
                 .HasKey(a => a.Id);

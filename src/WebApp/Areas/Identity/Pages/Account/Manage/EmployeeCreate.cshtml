@@ -1,0 +1,96 @@
+@page
+@model EmployeeCreateModel
+
+@{
+    ViewData["Title"] = "Medewerker inschrijven";
+}
+
+    <div>
+
+        <div class="col-12" id="form" style="    width: 75%;margin-left: auto;margin-right: auto;">
+        </div>
+
+        <div class="col-12 mt-5">
+            <form asp-route-returnUrl="@Model.ReturnUrl" method="post" style="max-width: 75%;margin-left: auto;margin-right: auto;">
+                <h4>Hulpverlener/Medewerker aanmaken.</h4>
+                <hr/>
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group mt-2">
+                    <label asp-for="Input.ClientId">MedewerkerId</label>
+                    <input asp-for="Input.ClientId" class="form-control" id="clientId" onchange="checkClientId()"/>
+                    <span asp-validation-for="Input.ClientId" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-2">
+                    <label asp-for="Input.Email"></label>
+                    <input asp-for="Input.Email" class="form-control"/>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-2">
+                    <label asp-for="Input.Password"></label>
+                    <input asp-for="Input.Password" class="form-control"/>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-2">
+                    <label asp-for="Input.ConfirmPassword"></label>
+                    <input asp-for="Input.ConfirmPassword" class="form-control"/>
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Aanmaken</button>
+            </form>
+        </div>
+    </div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        async function checkClientId()
+        {
+            var Id = document.getElementById("clientId").value;
+
+            if (Id != "") {
+                var result = await fetch("https://orthopedagogie-zmdh.herokuapp.com/clienten?sleutel=775610609&clientid=" + Id, {
+                    method : "get"
+                });
+
+                if (result.status == 404) {
+                    var makeProfile = confirm("Deze inlog is niet gelinkt aan een bestaand profiel van ZMDH. Wilt u een profiel aanmaken?");
+
+                    if (makeProfile) {
+                        document.getElementById("form").innerHTML = "<form action=\"/Home/RegisterProfile\" method=\"post\">" +
+                            "<div><input type=\"hidden\" name=\"ClientId\" type=\"number\" value=\"" + Id + "\" /></div>" +
+                            "<div>Volledige naam:   <input name=\"FullName\" type=\"text\" /></div>" +
+                            "<div>IBAN: <input name=\"iban\" type=\"text\" /></div>" +
+                            "<div>BSN:  <input name=\"bsn\" type=\"number\" /></div>" +
+                            "<div>Geboorte datum:  <input name=\"DateOfBirth\" type=\"date\" /></div>" +
+                            "<div><input type=\"submit\" value=\"Voeg toe\" /></div>" +
+                            "</form>";
+                    }
+                    else {
+                        document.getElementById("clientId").value = "";
+                    }
+                }
+                else if (result.status == 200) {
+                    var link = confirm("Er bestaat een profiel met deze ClientId, wilt u het profiel met deze ClientId met deze login linken?");
+                    if (link) {
+                        var bsn = prompt("Wat is uw BSN? (dit is ter verificatie)");
+                        var result2 = await fetch("https://orthopedagogie-zmdh.herokuapp.com/clienten?sleutel=775610609&clientid=" + Id, {
+                            method : "get"
+                        })
+                        .then((i) => i.json());
+
+                        if (bsn == result2.BSN) { alert("Verificatie geslaagd!"); }
+                        else {
+                            alert("BSN komt niet overeen!");
+                            document.getElementById("clientId").value = "";
+                        }
+                    }
+                    else {
+                        document.getElementById("clientId").value = "";
+                    }
+                }
+                else { alert("error"); document.getElementById("clientId").value = ""; }
+            }
+        }
+    </script>
+}

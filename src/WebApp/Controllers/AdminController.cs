@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,16 +15,51 @@ namespace WebApp.Controllers
     public class AdminController : Controller
     {
         private readonly MyContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public AdminController(MyContext context)
+        public AdminController(MyContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
+        }
+        
+        // GET: Admin
+        public IActionResult Index()
+        {
+            return View();
         }
 
-        // GET: Admin/UserIndex
-        public async Task<IActionResult> UserIndex()
+        /*private async Task<IEnumerable<ApplicationUser>> GetAllUsers()
         {
-            return View(await _context.Users.ToListAsync());
+            var result2 = await _userManager.getusers("");
+            var clients = await _userManager.GetUsersInRoleAsync("Client");
+            var employees = await _userManager.GetUsersInRoleAsync("Employee");
+            var administrators = await _userManager.GetUsersInRoleAsync("Administrator");
+
+            IEnumerable<ApplicationUser> result = null;
+
+            if (clients != null && employees == null && administrators == null) result = clients;
+            else if (clients == null && employees != null && administrators == null) result = employees;
+            else if (clients == null && employees == null && administrators != null) result = administrators;
+
+            else if (clients != null && employees != null) {
+                result = clients.Concat(employees);
+                if (administrators != null) result = result.Concat(administrators);
+            } else if (employees != null && administrators != null) {
+                result = employees.Concat(administrators);
+            } else if (clients != null && administrators != null) {
+                result = clients.Concat(administrators);
+            }
+
+            if (result != null) result.OrderBy(u => u.Id);
+
+            return result;
+        }*/
+
+        // GET: Admin/UserIndex
+        public IActionResult UserIndex()
+        {
+            return View(_context.Users.ToList());
         }
 
         // GET: Admin/UserDetails/5
@@ -34,8 +70,9 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var applicationUser = await _context.Users
-                .FirstOrDefaultAsync(m => m.Id == id);
+            //var applicationUser = _userManager.Users
+            //    .FirstOrDefault(m => m.Id == id);
+            var applicationUser = await _userManager.FindByIdAsync(id);
             if (applicationUser == null)
             {
                 return NotFound();
@@ -59,9 +96,10 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(applicationUser);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                await _userManager.CreateAsync(applicationUser);
+                // _context.Add(applicationUser);
+                // await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(UserIndex));
             }
             return View(applicationUser);
         }
@@ -74,7 +112,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var applicationUser = await _context.Users.FindAsync(id);
+            var applicationUser = await _userManager.FindByIdAsync(id);
             if (applicationUser == null)
             {
                 return NotFound();
@@ -98,8 +136,7 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    _context.Update(applicationUser);
-                    await _context.SaveChangesAsync();
+                    await _userManager.UpdateAsync(applicationUser);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -112,7 +149,7 @@ namespace WebApp.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(UserIndex));
             }
             return View(applicationUser);
         }
@@ -125,8 +162,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var applicationUser = await _context.Users
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var applicationUser = await _userManager.FindByIdAsync(id);
             if (applicationUser == null)
             {
                 return NotFound();
@@ -140,21 +176,14 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UserDeleteConfirmed(string id)
         {
-            var applicationUser = await _context.Users.FindAsync(id);
-            _context.Users.Remove(applicationUser);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            await _userManager.DeleteAsync(await _userManager.FindByIdAsync(id));
+            return RedirectToAction(nameof(UserIndex));
         }
 
         private bool ApplicationUserExists(string id)
         {
             return _context.Users.Any(e => e.Id == id);
         }
-
-
-
-
-
 
         // GET: Admin/GroupIndex
         public async Task<IActionResult> GroupIndex()
@@ -195,7 +224,7 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(group);
+                _context.Groups.Add(group);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(GroupIndex));
             }
@@ -210,7 +239,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var group = await _context.Groups.FindAsync(id);
+            var group = _context.Groups.Single(g => g.Id == id);
             if (group == null)
             {
                 return NotFound();
@@ -234,7 +263,7 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    _context.Update(group);
+                    _context.Groups.Update(group);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -276,7 +305,7 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> GroupDeleteConfirmed(int id)
         {
-            var group = await _context.Groups.FindAsync(id);
+            var group = _context.Groups.Single(g => g.Id == id);
             _context.Groups.Remove(group);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(GroupIndex));

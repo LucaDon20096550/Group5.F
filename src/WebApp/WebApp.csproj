@@ -7,12 +7,14 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Runtime" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
@@ -22,12 +24,23 @@
     <PackageReference Include="FluentEmail.Razor" Version="3.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="wwwroot\PNG\medical-g44a3384bc_1280.png" />
     <None Update="Views\Samsor views\dossier.css">
       <DependentUpon>Dossiers.html</DependentUpon>
     </None>
     <None Update="Views\Samsor views\zelfhulpgroep.css">
       <DependentUpon>zelfhulpgroep.html</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Areas\Identity\Pages\Account\Manage\ManageNavPages.cs">
+      <DependentUpon>_ManageNav.cshtml</DependentUpon>
+    </Compile>
+    <Compile Update="Areas\Identity\Pages\Account\Manage\GerapporteerdeBerichten.cshtml.cs">
+      <DependentUpon>GerapporteerdeBerichten.cshtml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\ApplicationUser\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\ApplicationUser\x.cshtml" />
   </ItemGroup>
 </Project>
