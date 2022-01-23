@@ -239,7 +239,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var group = await _context.Groups.FindAsync(id);
+            var group = _context.Groups.Single(g => g.Id == id);
             if (group == null)
             {
                 return NotFound();
@@ -305,7 +305,7 @@ namespace WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> GroupDeleteConfirmed(int id)
         {
-            var group = await _context.Groups.FindAsync(id);
+            var group = _context.Groups.Single(g => g.Id == id);
             _context.Groups.Remove(group);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(GroupIndex));

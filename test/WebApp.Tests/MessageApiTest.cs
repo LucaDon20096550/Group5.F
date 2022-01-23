@@ -43,7 +43,7 @@ namespace WebApp.Tests
             _userManagerMock = MockUserManager();
             _userManagerMock.Object.CreateAsync(new ApplicationUser(){ Id = "1" });
             _userManagerMock.Object.CreateAsync(new ApplicationUser(){ Id = "2" });
-            _context.Users.Find(1)
+            _context.Users.Single(u => u.Id == "1")
                 .PrivateChats
                 .Add(new PrivateChat()
                 {
@@ -55,13 +55,13 @@ namespace WebApp.Tests
                         new Message()
                         {
                             DateTimeSent = DateTime.Now,
-                            Sender = _context.Users.Find("1"),
+                            Sender = _context.Users.Single(u => u.Id == "1"),
                             Text = "Test1"
                         },
                         new Message()
                         {
                             DateTimeSent = DateTime.Now,
-                            Sender = _context.Users.Find("2"),
+                            Sender = _context.Users.Single(u => u.Id == "2"),
                             Text = "Test2"
                         }
                     }

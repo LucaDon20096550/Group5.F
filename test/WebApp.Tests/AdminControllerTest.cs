@@ -248,7 +248,7 @@ namespace WebApp.Tests
             if (exists) {
                 var viewResult = Xunit.Assert.IsType<ViewResult>(iActionResult);
                 Xunit.Assert.Null(viewResult.ViewName);
-                Xunit.Assert.Equal(await _context.Groups.FindAsync(id), viewResult.Model);
+                Xunit.Assert.Equal(_context.Groups.Single(g => g.Id == id), viewResult.Model);
             } else Xunit.Assert.IsType<NotFoundResult>(iActionResult);
         }
 
@@ -294,7 +294,7 @@ namespace WebApp.Tests
         [InlineData(4, false)]
         public async void GroupEditGetTest(int id, bool exists)
         {
-            var group = _context.Groups.FindAsync(id);
+            var group = _context.Groups.Single(g => g.Id == id);
             var adminController = CreateController();
             var iActionResult = await Xunit.Assert.IsType<Task<IActionResult>>(adminController.GroupEdit(id));
 
@@ -316,7 +316,7 @@ namespace WebApp.Tests
             var adminController = CreateController();
 
             if (expected) {
-                var group = _context.Groups.Find(id);
+                var group = _context.Groups.Single(g => g.Id == id);
                 group.Name = "TestGroup";
                 var iActionResult = await Xunit.Assert.IsType<Task<IActionResult>>(adminController.GroupEdit(id, group));
                 var redirectToActionResult = Xunit.Assert.IsType<RedirectToActionResult>(iActionResult);
@@ -342,7 +342,7 @@ namespace WebApp.Tests
         [InlineData(4, false)]
         public async void GroupDeleteTest(int id, bool exists)
         {
-            var group = _context.Groups.FindAsync(id);
+            var group = _context.Groups.Single(g => g.Id == id);
             var adminController = CreateController();
             var iActionResult = await Xunit.Assert.IsType<Task<IActionResult>>(adminController.GroupDelete(id));
 
