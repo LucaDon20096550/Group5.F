@@ -13,7 +13,7 @@
 }
 
 a {
-    color: rgb(164,223,170);
+    color: green;
 }
 
 .text-two {
@@ -80,4 +80,9 @@ a {
     margin-right: auto;
 }
 
+@media screen and (min-width: 768px)  {
+    .intro-text {
+        width: 75%;
+    }
+}
 
